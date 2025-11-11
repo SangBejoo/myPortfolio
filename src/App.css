@@ -800,7 +800,7 @@ a:active {
   -webkit-clip-path: polygon(0 0, 20% 5%, 100% 0, 100% 100%, 80% 95%, 0 100%);
           clip-path: polygon(0 0, 20% 5%, 100% 0, 100% 100%, 80% 95%, 0 100%);
   z-index: 5;
-  background: #fafafa url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Author_BG.jpg) center right no-repeat;
+  background: #fafafa url('./assets/image/author/IMG_20210606_145729_903.jpg') center right no-repeat;
   background-attachment: fixed;
 }
 
@@ -1084,6 +1084,234 @@ a:active {
 
 
 
+/*****************
+ *****************
+ CERTIFICATES STYLES
+ *****************
+ *****************/
+
+#certificates {
+  min-height: 100vh;
+  font-size: 1.4rem;
+  position: relative;
+  background: #f0f0f0;
+  background: linear-gradient(215deg, #fafafa 0%, #f0f0f0 100%);
+  margin-top: -5rem;
+  z-index: 1;
+}
+
+#certificates a,
+#certificates a:visited {
+  color: #f300b4;
+}
+
+#certificates a:hover,
+#certificates a:active {
+  color: #252934;
+}
+
+/* Container */
+#certificates .certificates-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 8rem 5rem 20rem;
+}
+
+/* Heading */
+#certificates .heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+#certificates .heading .title {
+  text-align: center;
+  font-size: 2.4rem;
+  line-height: 2.4rem;
+}
+
+#certificates .heading .separator {
+  background: #f300b4;
+  width: 150px;
+  height: 2px;
+  margin: 1rem auto;
+}
+
+#certificates .heading .subtitle {
+  font-size: 1.4rem;
+  text-align: center;
+  width: 70%;
+  margin: 0 auto;
+  text-align: justify;
+}
+
+/* Certificates Grid */
+#certificates .certificates-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+
+#certificates .certificate-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: #ffffffaa;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px -10px #25293450;
+  transition: 300ms;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#certificates .certificate-item:hover {
+  box-shadow: 0 20px 50px -15px #25293450;
+  transform: translateY(-5px);
+}
+
+#certificates .certificate-item img {
+  width: 100%;
+  height: auto;
+  max-height: 220px; /* keep thumbnails uniform */
+  object-fit: contain; /* show full certificate without cropping */
+  background: #ffffff; /* ensures white certificates render against the container */
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  transition: 300ms;
+  display: block;
+  border: 1px solid rgba(0,0,0,0.08); /* subtle border to make white images visible */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  padding: 6px; /* small inner padding to separate image from border */
+}
+
+#certificates .certificate-item:hover img {
+  transform: scale(1.05);
+}
+
+#certificates .certificate-item p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f300b4;
+  margin: 0;
+}
+
+/* Certificate Modal Styles */
+.certificate-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.certificate-modal {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.certificate-modal .modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #f300b4;
+  border: none;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 200ms;
+  z-index: 1001;
+}
+
+.modal-close:hover {
+  background: #d6009a;
+  transform: scale(1.1);
+}
+
+@media only screen and (max-width: 1149px) {
+  #certificates .certificates-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 949px) {
+  #certificates .certificates-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 649px) {
+  #certificates {
+    background: #f0f0f0;
+  }
+  #certificates .certificates-container {
+    padding: 8rem 2rem 20rem;
+  }
+}
+
+
+
+
+/*****************
+ *****************
+   CONTACT STYLES
+ *****************
+ *****************/
+
+
+
+
 
 
 
@@ -1120,6 +1348,67 @@ a:active {
 #contact .container .heading-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.contact-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-item i {
+  color: #f300b4;
+  font-size: 1.8rem;
+  width: 30px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.contact-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.contact-label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #f300b4;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-item a,
+.contact-item p {
+  color: #fafafa;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.contact-item a {
+  text-decoration: none;
+  border-bottom: 1px dotted #f300b4;
+  transition: 200ms;
+}
+
+.contact-item a:hover {
+  color: #f300b4;
+  border-bottom: 1px solid #f300b4;
 }
 
 #contact .heading-wrapper .social a {
@@ -1147,7 +1436,41 @@ a:active {
 }
 
 #contact-form {
-  margin-top: 1rem;
+  margin-top: 3rem;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.success-message {
+  color: #4caf50;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: bold;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: bold;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 input, textarea {
@@ -1186,10 +1509,16 @@ input[type="submit"] {
   margin-top: 1rem;
   width: auto;
   float: right;
+  transition: 200ms;
 }
 
-input[type="submit"]:hover,
-input[type="submit"]:focus {
+input[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+input[type="submit"]:hover:not(:disabled),
+input[type="submit"]:focus:not(:disabled) {
   cursor: pointer;
   color: #333;
   background: #fafafa;
