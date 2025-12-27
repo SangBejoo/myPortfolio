@@ -1,115 +1,265 @@
+'use client'
 
-import Project from './Project';
-import parkingImg from '../assets/image/parkingSpace/Screenshot 2024-12-02 142249.png'
-import capstoneImg from '../assets/image/capstone/Screenshot 2025-07-30 115909.png'
-import rusunuaImg from '../assets/image/rusunawa/image.png'
-import chatWaifuImg from '../assets/image/chatWaifu/image.png'
-import chatWaifu1 from '../assets/image/chatWaifu/image1.png'
-import chatWaifu2 from '../assets/image/chatWaifu/Screenshot 2025-11-11 122854.png'
-import chatWaifu3 from '../assets/image/chatWaifu/Screenshot 2025-11-11 122958.png'
-import chatWaifu4 from '../assets/image/chatWaifu/Screenshot 2025-11-11 123112.png'
-import capstone1 from '../assets/image/capstone/Screenshot 2025-07-30 115909.png'
-import capstone2 from '../assets/image/capstone/Screenshot_20231222_105511.png'
-import parking1 from '../assets/image/parkingSpace/Screenshot 2024-12-02 142249.png'
-import parking2 from '../assets/image/parkingSpace/Screenshot 2024-12-02 142405.png'
-import parking3 from '../assets/image/parkingSpace/Screenshot 2024-12-02 142930.png'
-import rusunawa1 from '../assets/image/rusunawa/Screenshot 2025-07-02 094102.png'
-import rusunawa2 from '../assets/image/rusunawa/Screenshot 2025-07-02 094405.png'
-import rusunawa3 from '../assets/image/rusunawa/Screenshot 2025-07-02 094411.png'
-import rusunawa4 from '../assets/image/rusunawa/Screenshot 2025-07-02 094505.png'
-import rusunawa5 from '../assets/image/rusunawa/Screenshot 2025-07-02 094635.png'
-import rusunawa6 from '../assets/image/rusunawa/Screenshot 2025-07-02 100017.png'
-import rusunawa7 from '../assets/image/rusunawa/Screenshot 2025-07-16 150849.png'
-import rusunawa8 from '../assets/image/rusunawa/Screenshot 2025-07-16 150911.png'
+import { motion } from 'framer-motion'
+import { ExternalLink, Github, ImageIcon } from 'lucide-react'
+import Image from 'next/image'
+import { useState } from 'react'
+import { Badge } from './Badge'
+import { ProjectGallery } from './ProjectGallery'
 
-const Projects = () => {
-    return (
-      <section id="projects">
-        <div className="projects-container">
-          <div className="heading fade-in-up">
-            <h3 className="title section-title fade-in-up">My Works</h3>
-            <p className="separator fade-in-up"></p>
-            <p className="subtitle fade-in-up">
-              Here's a selection of projects I've worked on recently. These showcase my skills in back-end development, cloud computing, and system architecture.
-            </p>
-          </div>
-          <div className="projects-wrapper">
-            <div className="fade-in-left stagger-1">
-              <Project
-                title="Parking Space Monitoring System"
-                img={parkingImg}
-                tech="golang postgresql gcp"
-                repo="#"
-                link="#"
-                images={[parking1, parking2, parking3]}
-              >
-                <small>Blue Bird Group - 2024-2025</small>
-                <p>Comprehensive parking space monitoring system using GoLang, gRPC, REST APIs, PostgreSQL GIS, and Tile38 for real-time location tracking.</p>
-              </Project>
-            </div>
-            <div className="fade-in-right stagger-2">
-              <Project
-                title="Capstone Project GCP"
-                img={capstoneImg}
-                tech="python gcp"
-                repo="#"
-                link="#"
-                images={[capstone1, capstone2]}
-              >
-                <small>Bangkit Academy - 2023-2024</small>
-                <p>Scalable application using Google Cloud services: Compute Engine, Cloud Storage, BigQuery, Vertex AI, and Cloud Functions.</p>
-              </Project>
-            </div>
-            <div className="fade-in-left stagger-3">
-              <Project
-                title="Skripsi Management Rusunawa"
-                img={rusunuaImg}
-                tech="golang react postgresql"
-                repo="#"
-                link="#"
-                images={[rusunawa1, rusunawa2, rusunawa3, rusunawa4, rusunawa5, rusunawa6, rusunawa7, rusunawa8]}
-                demoLinks={[
-                  {label: "Demo Penyewa", url: "https://rusunawa-frontend.vercel.app/tenant/login"},
-                  {label: "Demo Admin", url: "https://rusunawa-frontend.vercel.app/admin/login"}
-                ]}
-              >
-                <small>Final Project - 2024-2025 ver 1</small>
-                <p>A comprehensive, v1 production ready room rental management system designed for student accommodation and dormitory management. Built with modern microservices architecture using Go for Back-End, React for Front-End, and PostgreSQL. We know this Project need more to do so!</p>
-                <details style={{ marginTop: '1rem', padding: '1rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '8px', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)' }}>
-                  <summary style={{ fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '1.1rem', color: 'var(--text-light)' }}>📋 Key Highlights</summary>
-                  <div style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
-                    <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: 'var(--primary-light)' }}>🎯 Project Overview</h4>
-                    <p style={{ color: 'var(--text-muted)' }}>Rusunawa is a complete digital transformation solution for traditional room rental management. It addresses the challenges of manual booking processes, payment tracking, document management, and tenant administration through an integrated web-based platform.</p>
-  
-                    <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: 'var(--primary-light)' }}>🚀 Features</h4>
-                    <ul style={{ marginLeft: '1.5rem', listStyleType: 'none', padding: 0 }}>
-                      <li style={{ marginBottom: '0.5rem', color: 'var(--text-muted)' }}><strong style={{ color: 'var(--secondary-light)' }}>Microservices Architecture:</strong> Scalable gRPC-based backend with REST gateway</li>
-                      <li style={{ marginBottom: '0.5rem', color: 'var(--text-muted)' }}><strong style={{ color: 'var(--secondary-light)' }}>Real-time Operations:</strong> Live update </li>
-                      <li style={{ marginBottom: '0.5rem', color: 'var(--text-muted)' }}><strong style={{ color: 'var(--secondary-light)' }}>Payment Integration:</strong> Seamless Sandbox Midtrans payment gateway</li>
-                      <li style={{ marginBottom: '0.5rem', color: 'var(--text-muted)' }}><strong style={{ color: 'var(--secondary-light)' }}>Document Management:</strong> Automated verification workflows</li>
-                      <li style={{ marginBottom: '0.5rem', color: 'var(--text-muted)' }}><strong style={{ color: 'var(--secondary-light)' }}>Analytics Dashboard:</strong> Comprehensive business intelligence</li>
-                      <li style={{ marginBottom: '0.5rem', color: 'var(--text-muted)' }}><strong style={{ color: 'var(--secondary-light)' }}>Mobile-First Design:</strong> Responsive UI for all devices</li>
-                    </ul>
-                  </div>
-                </details>
-              </Project>
-            </div>
-            <div className="fade-in-right stagger-4">
-              <Project
-                title="Chat Waifu"
-                img={chatWaifuImg}
-                tech="python"
-                link="https://web-production-d0fd.up.railway.app/"
-                images={[chatWaifu1, chatWaifu2, chatWaifu3, chatWaifu4, chatWaifuImg]}
-              >
-                <small>Personal Project</small>
-                <p>A Flask-based chatbot for Genshin Impact and Honkai Star Rail characters, featuring audio responses and customizable templates. Integrates AI models API from Google Gemini, OpenRouter, OpenAI, with Cloudinary for storage and Fish Audio SDK for audio.</p>
-              </Project>
-            </div>
-          </div>
-        </div>
-      </section>
-    )
+interface ProjectItem {
+  id: string
+  title: string
+  description: string
+  imageUrl: string
+  images?: string[]
+  skills: string[]
+  highlight: string
+  codeLink?: string
+  demoLink?: string
+  featured?: boolean
+  size?: 'large' | 'medium' | 'small'
 }
 
-export default Projects;
+const projects: ProjectItem[] = [
+  {
+    id: 'rusunawa',
+    title: 'Rusunawa Management System',
+    description: 'Microservices-based dormitory management platform with complex RBAC and payment integration. Achieved 100% success rate in black-box testing.',
+    imageUrl: '/images/projects/rusunawa-main.png',
+    images: [
+      '/images/projects/rusunawa-main.png',
+      '/images/projects/rusunawa-1.png',
+      '/images/projects/rusunawa-2.png',
+      '/images/projects/rusunawa-3.png',
+      '/images/projects/rusunawa-4.png',
+      '/images/projects/rusunawa-5.png',
+      '/images/projects/rusunawa-6.png',
+      '/images/projects/rusunawa-7.png',
+      '/images/projects/rusunawa-8.png',
+      '/images/projects/rusunawa-9.png',
+      '/images/projects/rusunawa-10.png',
+      '/images/projects/rusunawa-11.png',
+      '/images/projects/rusunawa-12.png',
+      '/images/projects/rusunawa-13.png',
+      '/images/projects/rusunawa-14.png',
+    ],
+    skills: ['Go', 'gRPC', 'React', 'Docker', 'PostgreSQL', 'Midtrans'],
+    highlight: 'Full-stack architecture with role-based access control',
+    featured: true,
+    size: 'large',
+    codeLink: 'https://github.com/sangbejoo/rusunawa-api',
+  },
+  {
+    id: 'cbt',
+    title: 'CBT (Computer Based Test) System',
+    description: 'Full-stack online exam platform with fault-tolerant database schema to prevent data loss during high-load scenarios.',
+    imageUrl: '/images/projects/capstone-main.png',
+    images: [
+      '/images/projects/capstone-main.png',
+      '/images/projects/capstone-1.png',
+    ],
+    skills: ['Golang', 'Next.js', 'MySQL', 'WebSockets'],
+    highlight: 'Engineered for 99.9% uptime during exams',
+    size: 'medium',
+    codeLink: 'https://github.com/sangbejoo/cbt-system',
+  },
+  {
+    id: 'parking',
+    title: 'Parking Space Monitoring System',
+    description: 'Real-time parking space tracking system using GoLang, gRPC, PostgreSQL GIS, and Tile38 for location-based services.',
+    imageUrl: '/images/projects/parking-main.png',
+    images: [
+      '/images/projects/parking-main.png',
+      '/images/projects/parking-1.png',
+      '/images/projects/parking-2.png',
+    ],
+    skills: ['Golang', 'gRPC', 'PostgreSQL GIS', 'Tile38', 'GCP'],
+    highlight: 'Real-time geospatial data processing',
+    size: 'medium',
+    codeLink: 'https://github.com/sangbejoo/parking-system',
+  },
+  {
+    id: 'chat-waifu',
+    title: 'Chat Waifu',
+    description: 'AI character chatbot experiment showcasing LLM integration and natural conversation flows.',
+    imageUrl: '/images/projects/chatwaifu-main.png',
+    images: [
+      '/images/projects/chatwaifu-main.png',
+      '/images/projects/chatwaifu-1.png',
+      '/images/projects/chatwaifu-2.png',
+      '/images/projects/chatwaifu-3.png',
+      '/images/projects/chatwaifu-4.png',
+    ],
+    skills: ['Python', 'Flask', 'LLM APIs', 'Google Gemini'],
+    highlight: 'AI-powered conversational interface',
+    size: 'small',
+  },
+]
+
+function ProjectCard({ project }: { project: ProjectItem }) {
+  const [galleryOpen, setGalleryOpen] = useState(false)
+  const isLarge = project.size === 'large'
+  const isMedium = project.size === 'medium'
+  const hasGallery = project.images && project.images.length > 1
+
+  return (
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className={`relative group overflow-hidden rounded-lg glass-effect hover-glow cursor-pointer h-full flex flex-col ${
+          isLarge ? 'row-span-2 col-span-2' : isMedium ? 'col-span-1' : 'col-span-1'
+        }`}
+      >
+        {/* Image Container */}
+        <div className="relative w-full overflow-hidden bg-gray-900 flex-shrink-0" style={{ paddingTop: isLarge ? '50%' : '60%' }}>
+          {project.imageUrl !== '/images/placeholder.png' ? (
+            <>
+              <Image
+                src={project.imageUrl}
+                alt={project.title}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes={isLarge ? '100%' : '50%'}
+                priority={project.featured}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              {/* Gallery Badge */}
+              {hasGallery && (
+                <div className="absolute top-4 right-4 px-3 py-1 bg-blue-600/80 backdrop-blur rounded-full text-white text-xs font-mono flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                  <ImageIcon size={14} />
+                  Gallery
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 flex items-center justify-center">
+              <p className="text-gray-400 text-sm">Project Image</p>
+            </div>
+          )}
+        </div>
+
+      {/* Content Container */}
+      <div className="p-4 sm:p-6 flex flex-col flex-grow">
+        {/* Title and Badge */}
+        <div className="mb-3">
+          <div className="flex items-start justify-between gap-2 mb-2">
+            <h3 className="text-lg sm:text-xl font-bold font-mono text-white group-hover:text-blue-400 transition-colors">
+              {project.title}
+            </h3>
+            {project.featured && (
+              <span className="px-2 py-1 bg-blue-600/20 border border-blue-600/40 text-blue-300 text-xs font-mono rounded whitespace-nowrap">
+                Featured
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Description */}
+        <p className="text-gray-300 text-sm mb-4 flex-grow leading-relaxed line-clamp-3">
+          {project.description}
+        </p>
+
+        {/* Highlight */}
+        <p className="text-blue-400 text-xs font-mono mb-4 italic">{project.highlight}</p>
+
+        {/* Skills */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.skills.map((skill) => (
+            <Badge key={skill} label={skill} />
+          ))}
+        </div>
+
+        {/* Links */}
+        <div className="flex gap-3 mt-auto pt-4 border-t border-gray-700 flex-wrap">
+          {hasGallery && (
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                setGalleryOpen(true)
+              }}
+              className="flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors text-sm font-mono"
+            >
+              <ImageIcon className="w-4 h-4" />
+              Gallery
+            </button>
+          )}
+          {project.codeLink && (
+            <a
+              href={project.codeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors text-sm font-mono"
+            >
+              <Github className="w-4 h-4" />
+              Code
+            </a>
+          )}
+          {project.demoLink && (
+            <a
+              href={project.demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors text-sm font-mono"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Demo
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+
+    {/* Gallery Modal */}
+    {hasGallery && project.images && (
+      <ProjectGallery
+        isOpen={galleryOpen}
+        projectTitle={project.title}
+        images={project.images}
+        onClose={() => setGalleryOpen(false)}
+      />
+    )}
+    </>
+  )
+}
+
+export function Projects() {
+  return (
+    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      {/* Section Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="mb-16"
+      >
+        <h2 className="text-4xl sm:text-5xl font-bold font-mono text-white mb-4">Featured Projects</h2>
+        <div className="w-12 h-1 bg-blue-600 rounded" />
+        <p className="text-gray-400 mt-4 max-w-2xl">
+          A curated selection of production-ready projects showcasing expertise in backend development, cloud architecture, and full-stack systems.
+        </p>
+      </motion.div>
+
+      {/* Bento Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-max">
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className={isLarge ? 'md:col-span-2 lg:col-span-2 md:row-span-2' : isMedium ? 'md:col-span-1' : 'col-span-1'}
+          >
+            <ProjectCard project={project} />
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// Helper variables for grid sizing
+const isLarge = false
+const isMedium = false
