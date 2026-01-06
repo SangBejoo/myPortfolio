@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, X, Grid3x3 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, X, Grid3x3, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -10,9 +10,15 @@ interface ProjectGalleryProps {
   projectTitle: string
   images: string[]
   onClose: () => void
+  demoLink?: string
+  demoText?: string
+  testCredentials?: {
+    email: string
+    password: string
+  }
 }
 
-export function ProjectGallery({ isOpen, projectTitle, images, onClose }: ProjectGalleryProps) {
+export function ProjectGallery({ isOpen, projectTitle, images, onClose, demoLink, demoText, testCredentials }: ProjectGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [viewMode, setViewMode] = useState<'single' | 'grid'>('single')
 
@@ -43,23 +49,48 @@ export function ProjectGallery({ isOpen, projectTitle, images, onClose }: Projec
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex justify-between items-center p-6 border-b border-gray-700">
-            <h2 className="text-2xl font-bold text-white">{projectTitle} Gallery</h2>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setViewMode(viewMode === 'single' ? 'grid' : 'single')}
-                className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-                title="Toggle view mode"
-              >
-                <Grid3x3 size={20} className="text-gray-300 hover:text-white" />
-              </button>
-              <button
-                onClick={onClose}
-                className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                <X size={24} className="text-gray-300 hover:text-white" />
-              </button>
+          <div className="p-6 border-b border-gray-700 space-y-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-white">{projectTitle} Gallery</h2>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setViewMode(viewMode === 'single' ? 'grid' : 'single')}
+                  className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+                  title="Toggle view mode"
+                >
+                  <Grid3x3 size={20} className="text-gray-300 hover:text-white" />
+                </button>
+                <button
+                  onClick={onClose}
+                  className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+                >
+                  <X size={24} className="text-gray-300 hover:text-white" />
+                </button>
+              </div>
             </div>
+            
+            {/* Demo Section */}
+            {demoLink && (
+              <div className="space-y-3">
+                <a
+                  href={demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-mono"
+                >
+                  <ExternalLink size={16} />
+                  Try Live: {demoText || 'Demo'}
+                </a>
+                
+                {testCredentials && (
+                  <div className="p-3 bg-blue-900/30 border border-blue-600/40 rounded text-sm text-blue-200 font-mono">
+                    <p className="font-bold mb-1">Test Credentials:</p>
+                    <p>Email: {testCredentials.email}</p>
+                    <p>Password: {testCredentials.password}</p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Content */}

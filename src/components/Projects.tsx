@@ -268,6 +268,9 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         projectTitle={project.title}
         images={project.images}
         onClose={() => setGalleryOpen(false)}
+        demoLink={project.demoLink}
+        demoText={project.demoText}
+        testCredentials={project.testCredentials}
       />
     )}
     </>
