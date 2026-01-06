@@ -83,8 +83,9 @@ export function Hero() {
 
             {/* Secondary Button */}
             <a
-              href="/resume.pdf"
-              download
+              href="https://drive.google.com/uc?export=download&id=1iAbqnpnaV7YnCzQo6ahikiVp_oHmTBTB"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-3 border border-gray-600 hover:border-gray-400 text-white font-mono rounded-lg transition-all duration-300 flex items-center gap-2 hover:bg-white/5"
             >
               <Download className="w-4 h-4" />

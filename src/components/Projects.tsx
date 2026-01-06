@@ -17,6 +17,11 @@ interface ProjectItem {
   highlight: string
   codeLink?: string
   demoLink?: string
+  demoText?: string
+  testCredentials?: {
+    email: string
+    password: string
+  }
   featured?: boolean
   size?: 'large' | 'medium' | 'small'
 }
@@ -49,6 +54,8 @@ const projects: ProjectItem[] = [
     featured: true,
     size: 'large',
     codeLink: 'https://github.com/sangbejoo/rusunawa-api',
+    demoLink: 'https://rusunawa.sangbejoo.site/tenant',
+    demoText: 'Coming Soon',
   },
   {
     id: 'cbt',
@@ -71,6 +78,11 @@ const projects: ProjectItem[] = [
     featured: true,
     size: 'medium',
     codeLink: 'https://github.com/sangbejoo/cbt-system',
+    demoLink: 'https://cbt.sangbejoo.site/',
+    testCredentials: {
+      email: 'test@gmail.com',
+      password: 'test@gmail.com',
+    },
   },
   {
     id: 'parking',
@@ -104,6 +116,7 @@ const projects: ProjectItem[] = [
     highlight: 'AI-powered conversational interface',
     featured: true,
     size: 'small',
+    demoLink: 'https://chatwaifu.sangbejoo.site/',
   },
   {
     id: 'capstone',
@@ -134,6 +147,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
+        onClick={() => hasGallery && setGalleryOpen(true)}
         className={`relative group overflow-hidden rounded-lg glass-effect hover-glow cursor-pointer h-full flex flex-col ${
           isLarge ? 'row-span-2 col-span-2' : isMedium ? 'col-span-1' : 'col-span-1'
         }`}
@@ -198,6 +212,15 @@ function ProjectCard({ project }: { project: ProjectItem }) {
           ))}
         </div>
 
+        {/* Test Credentials for CBT */}
+        {project.testCredentials && (
+          <div className="mb-4 p-3 bg-blue-900/30 border border-blue-600/40 rounded text-xs text-blue-200 font-mono">
+            <p className="font-bold mb-1">Test Credentials:</p>
+            <p>Email: {project.testCredentials.email}</p>
+            <p>Pass: {project.testCredentials.password}</p>
+          </div>
+        )}
+
         {/* Links */}
         <div className="flex gap-3 mt-auto pt-4 border-t border-gray-700 flex-wrap">
           {hasGallery && (
@@ -231,7 +254,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
               className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors text-sm font-mono"
             >
               <ExternalLink className="w-4 h-4" />
-              Demo
+              {project.demoText || 'Demo'}
             </a>
           )}
         </div>
