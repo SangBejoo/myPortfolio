@@ -81,7 +81,7 @@ export function Experience() {
               {/* Skills badges */}
               <div className="flex flex-wrap gap-2">
                 {exp.skills.map((skill) => (
-                  <Badge key={skill} label={skill} />
+                  <Badge key={skill}>{skill}</Badge>
                 ))}
               </div>
             </div>

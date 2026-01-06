@@ -54,13 +54,21 @@ const projects: ProjectItem[] = [
     id: 'cbt',
     title: 'CBT (Computer Based Test) System',
     description: 'Full-stack online exam platform with fault-tolerant database schema to prevent data loss during high-load scenarios.',
-    imageUrl: '/images/projects/capstone-main.png',
+    imageUrl: '/images/projects/cbt-main.png',
     images: [
-      '/images/projects/capstone-main.png',
-      '/images/projects/capstone-1.png',
+      '/images/projects/cbt-main.png',
+      '/images/projects/cbt-1.png',
+      '/images/projects/cbt-2.png',
+      '/images/projects/cbt-3.png',
+      '/images/projects/cbt-4.png',
+      '/images/projects/cbt-5.png',
+      '/images/projects/cbt-6.png',
+      '/images/projects/cbt-7.png',
+      '/images/projects/cbt-8.png',
     ],
     skills: ['Golang', 'Next.js', 'MySQL', 'WebSockets'],
     highlight: 'Engineered for 99.9% uptime during exams',
+    featured: true,
     size: 'medium',
     codeLink: 'https://github.com/sangbejoo/cbt-system',
   },
@@ -76,6 +84,7 @@ const projects: ProjectItem[] = [
     ],
     skills: ['Golang', 'gRPC', 'PostgreSQL GIS', 'Tile38', 'GCP'],
     highlight: 'Real-time geospatial data processing',
+    featured: true,
     size: 'medium',
     codeLink: 'https://github.com/sangbejoo/parking-system',
   },
@@ -93,6 +102,21 @@ const projects: ProjectItem[] = [
     ],
     skills: ['Python', 'Flask', 'LLM APIs', 'Google Gemini'],
     highlight: 'AI-powered conversational interface',
+    featured: true,
+    size: 'small',
+  },
+  {
+    id: 'capstone',
+    title: 'Capstone Project',
+    description: 'Comprehensive final year project demonstrating full-stack development skills and system integration capabilities.',
+    imageUrl: '/images/projects/capstone-main.png',
+    images: [
+      '/images/projects/capstone-main.png',
+      '/images/projects/capstone-1.png',
+    ],
+    skills: ['Full-Stack Development', 'System Design', 'Project Management'],
+    highlight: 'Complete end-to-end software solution',
+    featured: true,
     size: 'small',
   },
 ]
@@ -170,7 +194,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         {/* Skills */}
         <div className="flex flex-wrap gap-2 mb-4">
           {project.skills.map((skill) => (
-            <Badge key={skill} label={skill} />
+            <Badge key={skill}>{skill}</Badge>
           ))}
         </div>
 
