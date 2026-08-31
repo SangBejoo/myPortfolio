@@ -22,7 +22,7 @@ export function ConnectSection() {
           <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="flex justify-center">
             <div className="relative w-60 h-60 sm:w-72 sm:h-72 rounded-2xl overflow-hidden bmw-card p-1.5">
               <div className="relative w-full h-full rounded-xl overflow-hidden">
-                <Image src="/images/author/profile.jpg" alt="Ayub" fill className="object-cover object-top" style={{ objectPosition: '50% 16%' }} />
+                <Image src="/images/author/ayub.jpg" alt="Ayub" fill className="object-cover object-top" style={{ objectPosition: '50% 20%' }} />
                 <div className="absolute inset-0 bg-gradient-to-t from-bmw-carbon/60 to-transparent" />
                 <span className="absolute top-2 left-2 px-2 py-1 rounded-full bg-bmw-estoril text-white text-[10px] font-mono tracking-widest">READY TO CHAT</span>
               </div>

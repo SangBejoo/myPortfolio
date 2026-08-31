@@ -13,6 +13,14 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
+    title: 'Staff Web Programmer',
+    company: 'Penerbit Erlangga',
+    period: 'Feb 2026 — Present',
+    description: 'Building and maintaining large-scale web platforms for Indonesia\'s leading publisher. Developing high-traffic systems with Golang & React, optimized PostgreSQL + Redis, deployed on GCP — delivering Kami Melayani Ilmu Pengetahuan at scale.',
+    skills: ['GCP', 'Redis', 'PostgreSQL', 'Golang', 'React'],
+    icon: '📚',
+  },
+  {
     title: 'Backend Developer',
     company: 'PT Blue Bird Group',
     period: 'Oct 2024 — Jan 2025',

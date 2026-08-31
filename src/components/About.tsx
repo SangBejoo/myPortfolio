@@ -46,7 +46,7 @@ export function About() {
           >
             <div className="relative rounded-2xl overflow-hidden bmw-card p-2">
               <div className="relative aspect-[4/3] sm:aspect-square rounded-xl overflow-hidden bg-bmw-sapphire">
-                <Image src="/images/author/profile.jpg" alt="Ayub Subagiya" fill className="object-cover object-top" priority style={{ objectPosition: '50% 18%' }} />
+                <Image src="/images/author/ayub.jpg" alt="Ayub Subagiya" fill className="object-cover object-top" priority style={{ objectPosition: '50% 18%' }} />
                 <div className="absolute inset-0 bg-gradient-to-t from-bmw-carbon/70 via-transparent to-transparent" />
                 <div className="absolute inset-0 border border-bmw-alpine/5 rounded-xl pointer-events-none" />
                 {/* Status overlay like VN */}

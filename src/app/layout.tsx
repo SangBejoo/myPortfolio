@@ -5,14 +5,21 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://sangbejoo.site'),
   title: 'Ayub Subagiya — Backend Engineer │ BMW Individual × Visual Novel',
   description: 'Backend & Cloud Engineer crafting microservices with BMW Individual precision and Visual Novel soul. Go, GCP, gRPC — Alpine White, Carbon Black, Estoril Blue.',
   keywords: 'Backend Developer, Cloud Engineer, Golang, GCP, Microservices, Visual Novel, BMW, Next.js',
   authors: [{ name: 'Ayub Subagiya' }],
+  icons: {
+    icon: [{ url: '/images/tittle/bleach-anime.gif', type: 'image/gif' }],
+    shortcut: '/images/tittle/bleach-anime.gif',
+    apple: '/images/tittle/bleach-anime.gif',
+  },
   openGraph: {
     title: 'Ayub Subagiya — Backend Engineer │ Visual Novel Portfolio',
     description: 'Interactive Visual Novel portfolio — BMW Individual palette, anime VN dialogue, CG gallery. Click NEXT →',
     type: 'website',
+    images: ['/images/author/ayub.jpg'],
   },
 }
 

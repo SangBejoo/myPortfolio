@@ -8,19 +8,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#04070D',
-        foreground: '#F2F0EB',
-        muted: '#6E7681',
+        background: '#FFFFFF',
+        foreground: '#000000',
+        muted: '#6B7280',
         bmw: {
-          carbon: '#04070D',
-          sapphire: '#0A1020',
-          midnight: '#0B1A2F',
-          alpine: '#F2F0EB',
-          titan: '#A8B0BB',
-          mineral: '#6E7681',
-          estoril: '#0066B1',
-          daytona: '#1A8DDD',
-          mBlue: '#00ADEF',
+          carbon: '#000000', // African Turquoise actually #000000 per user - used for text
+          sapphire: '#F0F7FF', // very light blue tint for backgrounds
+          midnight: '#E0F0FF', // lighter blue for sections
+          alpine: '#FFFFFF', // Full White
+          titan: '#E5E7EB', // light grey border
+          mineral: '#6B7280', // muted grey text
+          estoril: '#009ADA', // Blue Ball - primary BMW Blue
+          daytona: '#009ADA', // same Blue Ball
+          mBlue: '#009ADA',
           mPurple: '#8E44AD',
           mRed: '#E30613',
         },
@@ -58,8 +58,8 @@ module.exports = {
           '50%': { transform: 'translateY(-8px)' },
         },
         vnPulseGlow: {
-          '0%, 100%': { opacity: '0.6', boxShadow: '0 0 20px rgba(0,102,177,0.3)' },
-          '50%': { opacity: '1', boxShadow: '0 0 40px rgba(0,102,177,0.6)' },
+          '0%, 100%': { opacity: '0.6', boxShadow: '0 0 20px rgba(0,154,218,0.15)' },
+          '50%': { opacity: '1', boxShadow: '0 0 40px rgba(0,154,218,0.25)' },
         },
         vnScan: {
           '0%': { transform: 'translateY(-100%)' },
@@ -75,8 +75,8 @@ module.exports = {
         },
       },
       backgroundImage: {
-        'bmw-m-stripe': 'linear-gradient(90deg, #00ADEF 0%, #00ADEF 33%, #6E44AD 33%, #6E44AD 66%, #E30613 66%)',
-        'bmw-carbon': 'radial-gradient(ellipse at top, rgba(0,102,177,0.08) 0%, transparent 60%)',
+        'bmw-m-stripe': 'linear-gradient(90deg, #009ADA 0%, #009ADA 33%, #6E44AD 33%, #6E44AD 66%, #E30613 66%)',
+        'bmw-carbon': 'radial-gradient(ellipse at top, rgba(0,154,218,0.06) 0%, transparent 60%)',
       },
     },
   },

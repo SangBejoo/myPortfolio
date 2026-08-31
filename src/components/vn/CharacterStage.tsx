@@ -37,14 +37,14 @@ export function CharacterStage({ active = true, variant = 'hero' }: CharacterSta
 
         <div className="relative w-full h-full">
           <Image
-            src="/images/author/profile.jpg"
+            src="/images/author/ayub.jpg"
             alt="Ayub Subagiya - Character Sprite"
             fill
             className="object-cover object-top rounded-[20px]"
             priority
             style={{
               filter: active ? 'contrast(1.05) saturate(1.08)' : 'grayscale(1)',
-              objectPosition: '50% 12%',
+              objectPosition: '50% 22%',
             }}
           />
           {/* VN anime color grading overlay */}
