@@ -1,127 +1,238 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Download } from 'lucide-react'
+import { ArrowRight, Download, Sparkles, MapPin } from 'lucide-react'
 import Link from 'next/link'
-import { TypingEffect } from './TypingEffect'
+import { useState, useEffect } from 'react'
+import { DialogueBox, useTypewriter } from './vn/DialogueBox'
+import { CharacterStage, VNBackdrop } from './vn/CharacterStage'
+
+// Visual Novel prologue lines - click NEXT like anime VN
+const vnScenes = [
+  {
+    speaker: 'AYUB',
+    line: "Yo... welcome to my route. I'm Ayub Subagiya — Backend Developer who builds systems like BMW builds engines: precise, powerful, and built to last.",
+  },
+  {
+    speaker: 'AYUB',
+    line: "I craft scalable microservices in Go, orchestrate cloud on GCP, and make distributed systems feel... effortless. Like a midnight drive on an empty toll road.",
+  },
+  {
+    speaker: 'SYSTEM',
+    line: "★ NEW CHAPTER UNLOCKED: Explore projects like a Visual Novel — press NEXT, watch the CGs, read the dialogue. Your choices matter.",
+  },
+]
+
+const roles = ['Backend Developer', 'Cloud Infrastructure Engineer', 'Microservices Architect', 'Go Developer']
+
+function MiniTyping({ phrases }: { phrases: string[] }) {
+  const [idx, setIdx] = useState(0)
+  const [txt, setTxt] = useState('')
+  const [deleting, setDeleting] = useState(false)
+  useEffect(() => {
+    const full = phrases[idx]
+    const t = setTimeout(() => {
+      if (!deleting) {
+        if (txt.length < full.length) setTxt(full.slice(0, txt.length + 1))
+        else setTimeout(() => setDeleting(true), 1800)
+      } else {
+        if (txt.length > 0) setTxt(full.slice(0, txt.length - 1))
+        else {
+          setDeleting(false)
+          setIdx((v) => (v + 1) % phrases.length)
+        }
+      }
+    }, deleting ? 30 : 70)
+    return () => clearTimeout(t)
+  }, [txt, deleting, idx, phrases])
+  return <span>{txt}<span className="animate-pulse text-bmw-daytona">▌</span></span>
+}
 
 export function Hero() {
-  const roles = [
-    'Backend Developer',
-    'Cloud Infrastructure Engineer',
-    'Microservices Architect',
-    'Go Developer',
-  ]
+  const [sceneIdx, setSceneIdx] = useState(0)
+  const [auto, setAuto] = useState(false)
+  const scene = vnScenes[sceneIdx]
+  const { displayed, done, skip } = useTypewriter(scene.line, 18, true)
+
+  // auto play VN
+  useEffect(() => {
+    if (!auto || !done) return
+    const t = setTimeout(() => setSceneIdx((v) => (v + 1) % vnScenes.length), 2800)
+    return () => clearTimeout(t)
+  }, [auto, done, sceneIdx])
+
+  // keyboard
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault()
+        if (!done) skip()
+        else setSceneIdx((v) => (v + 1) % vnScenes.length)
+      }
+      if (e.key === 'ArrowLeft' && done) setSceneIdx((v) => (v - 1 + vnScenes.length) % vnScenes.length)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [done, skip])
+
+  // reset typewriter when scene changes
+  useEffect(() => {
+    // hook handles via text change
+  }, [sceneIdx])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-10">
-      {/* Animated background grid */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 to-black" />
-        <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
+    <section id="hero" className="relative min-h-[96vh] flex flex-col overflow-hidden bg-bmw-carbon">
+      <VNBackdrop />
 
-      {/* Floating gradient orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl opacity-20 animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl opacity-20 animate-pulse" />
+      {/* Top cinematic bars - anime letterbox */}
+      <div className="h-[3px] m-stripe shrink-0" />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-6"
-        >
-          {/* Name */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold font-mono text-white leading-tight">
-            Ayub Subagiya
-          </h1>
-
-          {/* Typing role effect */}
-          <div className="h-16 sm:h-20 flex items-center justify-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-mono text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500">
-              <TypingEffect phrases={roles} speed={80} delayBetweenPhrases={3000} />
-              <span className="animate-pulse">|</span>
-            </h2>
-          </div>
-
-          {/* Tagline */}
-          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Building scalable microservices and robust cloud architectures. Specialized in Go, GCP, and modern DevOps practices.
-          </p>
-
-          {/* Location badge */}
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-            </span>
-            Bekasi, Indonesia
-          </div>
-
-          {/* CTA Buttons */}
+      {/* Main stage: split CG + info */}
+      <div className="flex-1 max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch lg:items-center">
+        {/* Left - Visual / Character */}
+        <div className="flex-1 flex flex-col min-h-[420px] lg:min-h-[560px]">
+          {/* Chapter card */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6"
+            className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full glass-effect text-[11px] font-mono tracking-widest mb-4"
           >
-            {/* Primary Button */}
-            <Link href="#projects">
-              <button className="group px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-mono rounded-lg transition-all duration-300 flex items-center gap-2 hover-glow">
-                View Projects
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </Link>
+            <Sparkles size={12} className="text-bmw-daytona" />
+            <span className="text-bmw-titan">CHAPTER</span>
+            <span className="text-bmw-alpine font-bold">00 — PROLOGUE</span>
+            <span className="w-1 h-1 rounded-full bg-bmw-mineral" />
+            <span className="text-bmw-mineral hidden sm:inline">ALPINE WHITE • CARBON BLACK</span>
+          </motion.div>
 
-            {/* Secondary Button */}
-            <a
-              href="https://drive.google.com/uc?export=download&id=1iAbqnpnaV7YnCzQo6ahikiVp_oHmTBTB"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 border border-gray-600 hover:border-gray-400 text-white font-mono rounded-lg transition-all duration-300 flex items-center gap-2 hover:bg-white/5"
+          {/* Title block - BMW style */}
+          <div className="space-y-3">
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-[40px] sm:text-[54px] lg:text-[62px] font-bold leading-[0.9] tracking-tight"
             >
-              <Download className="w-4 h-4" />
-              Download CV
-            </a>
-          </motion.div>
+              <span className="text-bmw-alpine">Ayub</span>{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-bmw-estoril via-bmw-daytona to-bmw-titan">Subagiya</span>
+            </motion.h1>
 
-          {/* Social links preview */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex justify-center gap-6 text-gray-400 text-sm pt-4"
-          >
-            <a href="https://github.com/sangbejoo" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
-              GitHub
-            </a>
-            <a href="https://linkedin.com/in/ayub-subagiya" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
-              LinkedIn
-            </a>
-            <a href="mailto:ayubsubagiya@gmail.com" className="hover:text-blue-400 transition-colors">
-              Email
-            </a>
-          </motion.div>
-        </motion.div>
+            <div className="h-[1px] w-24 bg-gradient-to-r from-bmw-estoril to-transparent" />
+
+            <div className="h-10 sm:h-12 flex items-center">
+              <h2 className="text-[18px] sm:text-[22px] lg:text-[26px] font-mono font-medium text-bmw-titan">
+                <MiniTyping phrases={roles} />
+              </h2>
+            </div>
+
+            <p className="text-[14px] sm:text-[15px] leading-relaxed text-bmw-mineral max-w-[560px]">
+              Building scalable microservices & robust cloud architectures — <span className="text-bmw-alpine">Go • GCP • Microservices</span> • Crafted with BMW Individual precision.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-effect text-xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                </span>
+                <MapPin size={12} className="text-bmw-titan" />
+                Bekasi, Indonesia — Available for new routes
+              </span>
+              <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-bmw-estoril/10 border border-bmw-estoril/20 text-bmw-daytona text-[11px] font-mono tracking-widest">
+                ● 1 YEAR EXP • 10+ PROJECTS • 4 CERTS
+              </span>
+            </div>
+
+            {/* CTA - BMW buttons */}
+            <div className="flex flex-wrap gap-3 pt-4">
+              <Link href="#projects">
+                <button className="group px-6 sm:px-7 py-3 btn-bmw-primary rounded-full font-mono text-sm font-semibold flex items-center gap-2">
+                  START STORY — View Projects
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </Link>
+              <a
+                href="https://drive.google.com/uc?export=download&id=1iAbqnpnaV7YnCzQo6ahikiVp_oHmTBTB"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 sm:px-7 py-3 btn-bmw-ghost rounded-full font-mono text-sm font-semibold flex items-center gap-2"
+              >
+                <Download size={16} /> Download CV
+              </a>
+            </div>
+
+            <div className="flex gap-4 pt-2 text-xs font-mono">
+              <a href="https://github.com/sangbejoo" target="_blank" rel="noopener noreferrer" className="text-bmw-titan hover:text-bmw-daytona transition-colors">GitHub →</a>
+              <a href="https://linkedin.com/in/ayub-subagiya" target="_blank" rel="noopener noreferrer" className="text-bmw-titan hover:text-bmw-daytona transition-colors">LinkedIn →</a>
+              <a href="mailto:ayubsubagiya@gmail.com" className="text-bmw-titan hover:text-bmw-daytona transition-colors">Email →</a>
+            </div>
+          </div>
+
+          {/* VN Dialogue at bottom of left column - desktop in column, mobile below */}
+          <div className="mt-auto pt-6 hidden lg:block">
+            <div onClick={() => (!done ? skip() : setSceneIdx((v) => (v + 1) % vnScenes.length))} className="cursor-pointer">
+              <DialogueBox
+                speaker={scene.speaker}
+                speakerColor={scene.speaker === 'SYSTEM' ? 'ALPINE WHITE' : 'ESTORIL BLUE'}
+                text={displayed}
+                isTypingComplete={done}
+                onSkipTypewriter={skip}
+                onNext={() => setSceneIdx((v) => (v + 1) % vnScenes.length)}
+                onPrev={() => setSceneIdx((v) => (v - 1 + vnScenes.length) % vnScenes.length)}
+                hasNext
+                hasPrev={sceneIdx > 0}
+                autoPlay={auto}
+                onToggleAuto={() => setAuto((v) => !v)}
+              />
+            </div>
+            <div className="flex items-center justify-center gap-1.5 mt-3">
+              {vnScenes.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSceneIdx(i)}
+                  className={`h-1 rounded-full transition-all ${i === sceneIdx ? 'w-6 bg-bmw-estoril' : 'w-1.5 bg-bmw-titan/30'}`}
+                />
+              ))}
+              <span className="ml-2 text-[10px] font-mono tracking-widest text-bmw-mineral">DIALOGUE {sceneIdx + 1}/{vnScenes.length} • CLICK OR PRESS →</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right - Character Stage */}
+        <div className="lg:w-[460px] shrink-0 flex flex-col items-center">
+          <CharacterStage active variant="hero" />
+          {/* Mobile dialogue */}
+          <div className="w-full mt-6 lg:hidden">
+            <div onClick={() => (!done ? skip() : setSceneIdx((v) => (v + 1) % vnScenes.length))} className="cursor-pointer">
+              <DialogueBox
+                speaker={scene.speaker}
+                text={displayed}
+                isTypingComplete={done}
+                onSkipTypewriter={skip}
+                onNext={() => setSceneIdx((v) => (v + 1) % vnScenes.length)}
+                onPrev={() => setSceneIdx((v) => (v - 1 + vnScenes.length) % vnScenes.length)}
+                hasNext
+                hasPrev={sceneIdx > 0}
+                autoPlay={auto}
+                onToggleAuto={() => setAuto((v) => !v)}
+              />
+            </div>
+            <div className="flex items-center justify-center gap-1.5 mt-3">
+              {vnScenes.map((_, i) => (
+                <button key={i} onClick={() => setSceneIdx(i)} className={`h-1 rounded-full transition-all ${i === sceneIdx ? 'w-6 bg-bmw-estoril' : 'w-1.5 bg-bmw-titan/30'}`} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Bottom hint - scroll */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        animate={{ y: [0, 6, 0] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+        className="hidden lg:flex absolute bottom-4 left-1/2 -translate-x-1/2 flex-col items-center gap-1.5"
       >
-        <div className="w-6 h-10 border border-gray-600 rounded-full flex justify-center p-2">
-          <div className="w-1 h-2 bg-gray-600 rounded-full" />
-        </div>
+        <span className="text-[10px] font-mono tracking-[0.2em] text-bmw-mineral">SCROLL FOR NEXT CHAPTER</span>
+        <div className="w-[1px] h-6 bg-gradient-to-b from-bmw-titan/40 to-transparent" />
       </motion.div>
     </section>
   )

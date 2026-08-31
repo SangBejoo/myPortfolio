@@ -1,11 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
+import { Github, Linkedin, Mail, ExternalLink, Heart } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
-
   const socialLinks = [
     { icon: Github, href: 'https://github.com/sangbejoo', label: 'GitHub' },
     { icon: Linkedin, href: 'https://linkedin.com/in/ayub-subagiya', label: 'LinkedIn' },
@@ -13,36 +12,40 @@ export function Footer() {
   ]
 
   return (
-    <footer id="contact" className="border-t border-gray-800 bg-gradient-to-b from-black to-gray-900/30 py-12 px-4">
-      <div className="max-w-5xl mx-auto">
-        {/* CTA Section */}
+    <footer id="contact" className="relative border-t border-bmw-titan/10 bg-bmw-carbon overflow-hidden">
+      <div className="m-stripe" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-t from-bmw-sapphire/10 via-transparent to-transparent" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[200px] blur-[60px] opacity-[0.04]" style={{ background: 'radial-gradient(ellipse, #0066B1 0%, transparent 70%)' }} />
+      </div>
+
+      <div className="relative max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold font-mono text-white mb-4">Let's Build Something Great</h2>
-          <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
-            Interested in collaborating? Feel free to reach out via email or connect on social media.
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-effect text-[11px] font-mono tracking-widest mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> FINAL CHAPTER • TRUE ENDING
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-bmw-alpine mb-3">Let&apos;s Build Something Great</h2>
+          <p className="text-bmw-mineral max-w-xl mx-auto text-sm leading-relaxed">
+            Your story + my code — let&apos;s make the next route unforgettable. Reach out for collaborations, freelance, or just to talk tech & anime.
           </p>
           <a
             href="mailto:ayubsubagiya@gmail.com"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-mono rounded-lg transition-all duration-300 hover-glow"
+            className="mt-6 inline-flex items-center gap-2 px-7 py-3 btn-bmw-primary rounded-full font-mono text-sm font-semibold"
           >
-            Get In Touch
-            <ExternalLink className="w-4 h-4" />
+            Get In Touch <ExternalLink size={14} />
           </a>
         </motion.div>
 
-        {/* Social Links */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="flex justify-center gap-6 mb-12"
+          className="flex justify-center gap-3 mb-10"
         >
           {socialLinks.map(({ icon: Icon, href, label }) => (
             <a
@@ -50,33 +53,26 @@ export function Footer() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 glass-effect rounded-lg hover:bg-blue-600/20 hover:border-blue-600/40 transition-all group"
+              className="w-11 h-11 rounded-full bmw-card flex items-center justify-center hover:border-bmw-estoril/30 group transition-colors"
               aria-label={label}
             >
-              <Icon className="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" />
+              <Icon size={18} className="text-bmw-titan group-hover:text-bmw-daytona transition-colors" />
             </a>
           ))}
         </motion.div>
 
-        {/* Divider */}
-        <div className="border-t border-gray-800 pt-8">
-          {/* Footer Info */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <p className="text-gray-500 text-sm mb-2">
-              © {currentYear} Ayub Subagiya. All rights reserved.
-            </p>
-            <p className="text-gray-600 text-xs">
-              Crafted with{' '}
-              <span className="inline-block mx-1">❤️</span>
-              using Next.js, Tailwind CSS, and Framer Motion
-            </p>
-          </motion.div>
+        <div className="border-t border-bmw-titan/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
+          <p className="text-bmw-mineral text-xs font-mono">© {currentYear} Ayub Subagiya • BMW INDIVIDUAL • Alpine White 300 / Carbon Black</p>
+          <p className="text-bmw-mineral/60 text-xs flex items-center gap-1.5">
+            Crafted with <Heart size={12} className="text-bmw-mRed fill-bmw-mRed" /> using Next.js • Tailwind • Framer Motion • Visual Novel Magic
+          </p>
+        </div>
+
+        {/* VN style bottom save */}
+        <div className="mt-6 flex justify-center">
+          <span className="px-3 py-1 rounded-full bg-bmw-alpine/[0.04] border border-bmw-titan/10 text-[10px] font-mono tracking-[0.18em] text-bmw-mineral">
+            PRESS ANY KEY TO CONTINUE • THANK YOU FOR PLAYING ♡
+          </span>
         </div>
       </div>
     </footer>
