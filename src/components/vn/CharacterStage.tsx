@@ -15,7 +15,7 @@ export function CharacterStage({ active = true, variant = 'hero' }: CharacterSta
   const label = variant === 'about' ? 'Ayub — Profile (Casual)' : 'Ayub — Formal'
   return (
     <div className="relative flex items-end justify-center select-none">
-      {/* Ambient glow behind character - BMW Blue Ball on white */}
+      {/* Ambient glow behind character */}
       <div className="absolute inset-0 -z-10 flex items-center justify-center">
         <div className="w-[520px] h-[520px] rounded-full blur-[80px] opacity-[0.12]"
           style={{ background: 'radial-gradient(circle, #009ADA 0%, #E0F0FF 45%, transparent 70%)' }} />

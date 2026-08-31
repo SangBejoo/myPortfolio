@@ -10,11 +10,11 @@ import { CharacterStage, VNBackdrop } from './vn/CharacterStage'
 const vnScenes = [
   {
     speaker: 'AYUB',
-    line: "Yo... welcome to my route. I'm Ayub Subagiya — Backend Developer who builds systems like BMW builds engines: precise, powerful, and built to last.",
+    line: "Yo... welcome to my route. I'm Ayub Subagiya (SangBejoo) — Backend Developer who builds systems: precise, powerful, and built to last.",
   },
   {
     speaker: 'AYUB',
-    line: "I craft scalable microservices in Go, orchestrate cloud on GCP, and make distributed systems feel... effortless. Like a midnight drive on an empty toll road.",
+    line: "I craft scalable microservices in Go, orchestrate cloud on GCP, and make distributed systems feel... effortless. Like a midnight drive on an empty highway.",
   },
   {
     speaker: 'SYSTEM',
@@ -90,7 +90,7 @@ export function Hero() {
             <span className="text-[#6B7280]">CHAPTER</span>
             <span className="text-black font-bold">00 — PROLOGUE</span>
             <span className="w-1 h-1 rounded-full bg-[#6B7280]" />
-            <span className="text-[#6B7280] hidden sm:inline">FULL WHITE • BLUE BALL</span>
+            <span className="text-[#6B7280] hidden sm:inline">BACKEND & CLOUD SYSTEMS</span>
           </motion.div>
 
           <div className="space-y-3">
@@ -113,7 +113,7 @@ export function Hero() {
             </div>
 
             <p className="text-[14px] sm:text-[15px] leading-relaxed text-[#6B7280] max-w-[560px]">
-              Building scalable microservices & robust cloud architectures — <span className="text-black font-medium">Go • GCP • Microservices</span> • Full White × Blue Ball precision.
+              Building scalable microservices & robust cloud architectures — <span className="text-black font-medium">Go • GCP • Microservices</span> with high performance & clean code.
             </p>
 
             <div className="flex flex-wrap items-center gap-2 pt-1">
@@ -158,7 +158,7 @@ export function Hero() {
             <div onClick={() => (!done ? skip() : setSceneIdx((v) => (v + 1) % vnScenes.length))} className="cursor-pointer">
               <DialogueBox
                 speaker={scene.speaker}
-                speakerColor={scene.speaker === 'SYSTEM' ? 'FULL WHITE' : 'BLUE BALL'}
+                speakerColor={scene.speaker === 'SYSTEM' ? 'SYSTEM' : 'SANGBEJOO'}
                 text={displayed}
                 isTypingComplete={done}
                 onSkipTypewriter={skip}

@@ -62,7 +62,7 @@ export function Footer() {
         </motion.div>
 
         <div className="border-t border-black/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
-          <p className="text-[#6B7280] text-xs font-mono">© {currentYear} Ayub Subagiya • BMW • Full White #FFFFFF • Blue Ball #009ADA</p>
+          <p className="text-[#6B7280] text-xs font-mono">© {currentYear} Ayub Subagiya (SangBejoo) • All rights reserved</p>
           <p className="text-[#6B7280]/70 text-xs flex items-center gap-1.5">
             Crafted with <Heart size={12} className="text-[#E30613] fill-[#E30613]" /> Next.js • Tailwind • Visual Novel Magic
           </p>

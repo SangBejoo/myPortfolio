@@ -73,10 +73,10 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(0,154,218,0.22);
 }
 
-/* M Stripes - BMW M Performance */
+/* Accent stripe */
 .m-stripe {
   height: 3px;
-  background: linear-gradient(90deg, #009ADA 0%, #009ADA 33%, #7A3BA6 33%, #7A3BA6 66%, #E30613 66%, #E30613 100%);
+  background: linear-gradient(90deg, #009ADA 0%, #00B4E6 50%, #0077B6 100%);
   opacity: 0.9;
 }
 

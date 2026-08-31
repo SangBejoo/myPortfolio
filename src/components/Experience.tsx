@@ -24,7 +24,7 @@ const experiences: ExperienceItem[] = [
     title: 'Backend Developer',
     company: 'PT Blue Bird Group',
     period: 'Oct 2024 — Jan 2025',
-    description: 'Built parking management & real-time driver tracking microservices. High-concurrency handlers, optimized Postgres + Redis, Dockerized services humming like an M engine at 7k rpm.',
+    description: 'Built parking management & real-time driver tracking microservices. High-concurrency handlers, optimized Postgres + Redis, Dockerized services with high performance and low latency.',
     skills: ['Golang', 'Gin', 'PostgreSQL', 'Redis', 'Docker', 'REST APIs'],
     icon: '🏢',
   },

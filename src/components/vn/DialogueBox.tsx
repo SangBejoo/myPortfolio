@@ -36,7 +36,7 @@ export function DialogueBox({
         <div className="vn-nameplate">
           <span className="w-1.5 h-1.5 rounded-full bg-white/90 animate-pulse" />
           {speaker}
-          <span className="hidden sm:inline opacity-70 font-normal ml-1">— {speakerColor || 'BLUE BALL'}</span>
+          <span className="hidden sm:inline opacity-70 font-normal ml-1">— {speakerColor || 'SANGBEJOO'}</span>
         </div>
         <div className="flex items-center gap-1 pr-3">
           {onToggleAuto && (

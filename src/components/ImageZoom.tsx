@@ -139,7 +139,7 @@ export function ImageZoom({ src, alt, isOpen, onClose, title }: ImageZoomProps) 
 
         {/* Footer thumb */}
         <div className="shrink-0 p-3 border-t border-black/5 dark:border-white/10 bg-white/60 dark:bg-black/20 backdrop-blur text-center">
-          <p className="text-xs font-mono text-[#6B7280] dark:text-white/60">💙 BMW Full White • Blue Ball #009ADA • Click outside to close</p>
+          <p className="text-xs font-mono text-[#6B7280] dark:text-white/60">SangBejoo Portfolio • Click outside to close</p>
         </div>
       </motion.div>
     </AnimatePresence>

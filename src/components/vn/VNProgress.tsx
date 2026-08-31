@@ -84,7 +84,7 @@ export function VNProgress({
 
             <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-bmw-mineral">
               <span className="w-6 h-[1px] bg-bmw-titan/20" />
-              BMW INDIVIDUAL
+              SANGBEJOO
             </div>
           </div>
         </div>

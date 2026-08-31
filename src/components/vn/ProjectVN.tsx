@@ -6,6 +6,12 @@ import { ChevronLeft, ChevronRight, ExternalLink, Github, Maximize2, X, Grid3x3 
 import { DialogueBox, useTypewriter } from './DialogueBox'
 import { ImageZoom } from '../ImageZoom'
 
+interface CGDialogue {
+  speaker?: string
+  text: string
+  speakerColor?: string
+}
+
 interface VNProject {
   id: string
   title: string
@@ -14,6 +20,7 @@ interface VNProject {
   vnLine: string
   imageUrl: string
   images?: string[]
+  cgDialogues?: CGDialogue[]
   skills: string[]
   highlight: string
   codeLink?: string
@@ -29,9 +36,86 @@ const vnProjects: VNProject[] = [
     title: 'Rusunawa Management System',
     subtitle: 'SCENE 01 — Microservices Dormitory Platform',
     description: 'Full microservices dormitory management with complex RBAC, Midtrans payments, and 100% black-box testing success.',
-    vnLine: 'The dormitory never sleeps. Every check-in, every payment — I made the system handle it without blinking. Microservices, RBAC, Midtrans... all talking through gRPC like a well-tuned engine.',
+    vnLine: 'The dormitory never sleeps. Every check-in, every payment — I made the system handle it without blinking. Microservices, RBAC, Midtrans... all talking through gRPC.',
     imageUrl: '/images/projects/rusunawa-main.png',
     images: ['/images/projects/rusunawa-main.png','/images/projects/rusunawa-1.png','/images/projects/rusunawa-2.png','/images/projects/rusunawa-3.png','/images/projects/rusunawa-4.png','/images/projects/rusunawa-5.png','/images/projects/rusunawa-6.png','/images/projects/rusunawa-7.png','/images/projects/rusunawa-8.png','/images/projects/rusunawa-9.png','/images/projects/rusunawa-10.png','/images/projects/rusunawa-11.png','/images/projects/rusunawa-12.png','/images/projects/rusunawa-13.png','/images/projects/rusunawa-14.png'],
+    cgDialogues: [
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Welcome to the Rusunawa Mission Command. A full microservices architecture orchestrating dormitory operations, tenant lifecycle, and billing without breaking a sweat.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Here's the main dashboard overview. Real-time metrics at a glance — total room occupancies, pending requests, and monthly revenue counters updated live.",
+      },
+      {
+        speaker: 'SYSTEM',
+        speakerColor: 'RBAC CORE',
+        text: "[SECURITY INITIALIZED] Multi-tier Role-Based Access Control active. Granular middleware guards every route for Superadmin, Staff, and Tenant tiers.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Room allocation matrix. Real-time availability tracking prevents double-booking scenarios even during peak semester registration rushes.",
+      },
+      {
+        speaker: 'ARCHITECT',
+        speakerColor: 'GO gRPC',
+        text: "Notice how snappy the data queries are? Optimized PostgreSQL indexing and gRPC binary serialization slashed API response times down to single digits.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Seamless Midtrans payment gateway integration. Automated Snap token generation, webhook verification, and idempotent transaction recording.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Automated billing and invoice generation. At the start of each billing cycle, a Go worker queue calculates utility fees and dispatches invoices asynchronously.",
+      },
+      {
+        speaker: 'SYSTEM',
+        speakerColor: 'PAYMENT GATEWAY',
+        text: "[PAYMENT EVENT] Webhook callback validated via HMAC signature. Instant ledger reconciliation and digital receipt generated on the fly.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Maintenance ticketing dispatch. Tenants can report facility issues with photo attachments, tracking resolution status in real time.",
+      },
+      {
+        speaker: 'NARRATOR',
+        speakerColor: 'SYSTEM DESIGN',
+        text: "Every interface state — loading spinners, error boundaries, empty states — was designed to keep complex enterprise flows crystal clear and intuitive.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Staff management and verification portal. Fast batch approvals for new occupant applications with document validation workflows.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Comprehensive financial audit reports and CSV/PDF export engine. Built with streaming response buffers to prevent memory spikes on large datasets.",
+      },
+      {
+        speaker: 'ARCHITECT',
+        speakerColor: 'DOCKER CONTAINER',
+        text: "All microservices are containerized with Docker Alpine images and deployed with health checks and graceful shutdowns for high availability.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "100% black-box test coverage achieved! Boundary tests, unauthorized tokens, expired sessions, and race conditions all passed without flaw.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Rusunawa route complete! A rock-solid, production-grade microservices system built from the ground up. Ready for the next scene?",
+      },
+    ],
     skills: ['Go', 'gRPC', 'React', 'Docker', 'PostgreSQL', 'Midtrans'],
     highlight: '100% test coverage • RBAC • Payments',
     speaker: 'AYUB',
@@ -47,6 +131,53 @@ const vnProjects: VNProject[] = [
     vnLine: 'No second chances during an exam. I built this to never lose a single answer — even when hundreds hit submit at once.',
     imageUrl: '/images/projects/cbt-main.png',
     images: ['/images/projects/cbt-main.png','/images/projects/cbt-1.png','/images/projects/cbt-2.png','/images/projects/cbt-3.png','/images/projects/cbt-4.png','/images/projects/cbt-5.png','/images/projects/cbt-6.png','/images/projects/cbt-7.png','/images/projects/cbt-8.png'],
+    cgDialogues: [
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "The exam timer is ticking! This is the CBT Exam Engine — crafted in Golang for zero exam downtime, zero data loss, and rock-solid reliability.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Student authentication with active device locking. Prevents concurrent duplicate logins, ensuring the exam is taken strictly on the verified terminal.",
+      },
+      {
+        speaker: 'SYSTEM',
+        speakerColor: 'WEBSOCKET SYNC',
+        text: "[SYNC TICK] Real-time server-side time synchronization prevents local clock tampering. Every answer option is auto-saved to Redis instantly.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Intuitive question navigator and answer sheet. Candidates can flag doubtful questions for review, skip sections, and see real-time progress counters.",
+      },
+      {
+        speaker: 'ARCHITECT',
+        speakerColor: 'HIGH CONCURRENCY',
+        text: "When hundreds of students click 'Submit' at the very last second, connection pooling and bulk write batches protect the database from crashing.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Teacher's question bank authoring suite. Supports rich-text questions, mathematical equations, image attachments, and dynamic option shuffling.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Exam scheduling and classroom token generator. Instructors can configure strict time windows, randomized question orders, and passing grades.",
+      },
+      {
+        speaker: 'SYSTEM',
+        speakerColor: 'AUTO GRADER',
+        text: "[GRADING COMPLETED] Instant score computation, statistical grade distribution curves, and difficulty item analysis generated in seconds.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "99.9% uptime and zero dropped submissions across high-stakes examination sessions. Scalable backend engineering at its best!",
+      },
+    ],
     skills: ['Golang', 'Next.js', 'MySQL', 'WebSockets'],
     highlight: '99.9% uptime • Real-time sync',
     speaker: 'AYUB',
@@ -63,6 +194,23 @@ const vnProjects: VNProject[] = [
     vnLine: 'Every parking slot, mapped in real time. GIS + Tile38 + gRPC streaming — it knows where every car is before you do.',
     imageUrl: '/images/projects/parking-main.png',
     images: ['/images/projects/parking-main.png','/images/projects/parking-1.png','/images/projects/parking-2.png'],
+    cgDialogues: [
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Real-time Geospatial Fleet & Parking System developed during my time at Blue Bird Group. Managing high-density vehicle movements across operational depots.",
+      },
+      {
+        speaker: 'ARCHITECT',
+        speakerColor: 'POSTGIS + TILE38',
+        text: "High-frequency GPS coordinate streams processed via gRPC and Tile38 in-memory geofencing to detect vehicle lot occupancy in sub-50ms latency.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Live dispatcher dashboard showing geospatial slot heatmaps and instant perimeter alerts — giving fleet coordinators complete visibility 24/7.",
+      },
+    ],
     skills: ['Golang', 'gRPC', 'PostgreSQL GIS', 'Tile38', 'GCP'],
     highlight: 'Geospatial • Real-time • GCP',
     speaker: 'AYUB',
@@ -76,6 +224,33 @@ const vnProjects: VNProject[] = [
     vnLine: 'Ehehe... this one is different. An AI that talks like a visual novel heroine. My love letter to anime interfaces.',
     imageUrl: '/images/projects/chatwaifu-main.png',
     images: ['/images/projects/chatwaifu-main.png','/images/projects/chatwaifu-1.png','/images/projects/chatwaifu-2.png','/images/projects/chatwaifu-3.png','/images/projects/chatwaifu-4.png'],
+    cgDialogues: [
+      {
+        speaker: 'WAIFU',
+        speakerColor: 'SAKURA PINK',
+        text: "Senpai~! Welcome to my route! I'm your interactive AI companion powered by Google Gemini and custom prompt engineering!",
+      },
+      {
+        speaker: 'WAIFU',
+        speakerColor: 'SAKURA PINK',
+        text: "Look at my expressions! Ayub coded state-based mood animations, so my emotions change dynamically based on the conversation context!",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Under the hood, it utilizes streaming SSE (Server-Sent Events) from Flask and Gemini API with smart conversational memory buffering.",
+      },
+      {
+        speaker: 'WAIFU',
+        speakerColor: 'SAKURA PINK',
+        text: "You can customize my personality traits too! Am I a cheerful kouhai, a sharp tsundere, or your supportive pair programmer today?",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Blending generative LLMs with visual novel interactive storytelling — creating an engaging experience that feels truly alive!",
+      },
+    ],
     skills: ['Python', 'Flask', 'LLM APIs', 'Gemini'],
     highlight: 'Anime UI • LLM • Character AI',
     speaker: 'WAIFU',
@@ -89,6 +264,18 @@ const vnProjects: VNProject[] = [
     vnLine: 'The final chapter. Everything I learned, compiled into one system.',
     imageUrl: '/images/projects/capstone-main.png',
     images: ['/images/projects/capstone-main.png','/images/projects/capstone-1.png'],
+    cgDialogues: [
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "The Capstone Project — the graduation arc of the Bangkit Cloud Computing Academy. An end-to-end microservices ecosystem on Google Cloud Platform.",
+      },
+      {
+        speaker: 'AYUB',
+        speakerColor: 'SANGBEJOO',
+        text: "Automated with Terraform Infrastructure as Code, Cloud Run autoscaling, CI/CD GitHub Actions pipelines, and zero-downtime rolling deployments.",
+      },
+    ],
     skills: ['Full-Stack', 'System Design', 'PM'],
     highlight: 'End-to-end • System Design',
     speaker: 'AYUB',
@@ -104,7 +291,14 @@ export function ProjectVN() {
 
   const project = vnProjects[index]
   const totalCG = project.images?.length || 1
-  const { displayed, done, skip } = useTypewriter(project.vnLine, 16, true)
+
+  const currentDialogue = project.cgDialogues?.[cgIndex] || {
+    speaker: project.speaker || 'AYUB',
+    speakerColor: project.speaker === 'WAIFU' ? 'SAKURA PINK' : 'SANGBEJOO',
+    text: project.vnLine,
+  }
+
+  const { displayed, done, skip } = useTypewriter(currentDialogue.text, 16, true)
 
   useEffect(() => { setCgIndex(0) }, [index])
 
@@ -236,8 +430,8 @@ export function ProjectVN() {
         <div className="flex flex-col gap-4">
           <div onClick={() => (!done ? skip() : cgIndex < totalCG - 1 ? nextCG() : nextProject())} className="cursor-pointer">
             <DialogueBox
-              speaker={project.speaker || 'AYUB'}
-              speakerColor={project.speaker === 'WAIFU' ? 'SAKURA PINK' : 'BLUE BALL'}
+              speaker={currentDialogue.speaker || project.speaker || 'AYUB'}
+              speakerColor={currentDialogue.speakerColor || (project.speaker === 'WAIFU' ? 'SAKURA PINK' : 'SANGBEJOO')}
               text={displayed}
               isTypingComplete={done}
               onSkipTypewriter={skip}

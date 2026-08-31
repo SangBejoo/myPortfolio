@@ -9,7 +9,7 @@ import { ImageZoom } from './ImageZoom'
 const vnAboutLines = [
   { speaker: 'AYUB', text: "About me? Think of me as the protagonist who picked the engineering route. Bekasi-born, backend-obsessed. I turn messy problems into clean, scalable systems." },
   { speaker: 'NARRATOR', text: "He has hands-on experience with Go, Python, PostgreSQL, and Google Cloud Platform — and a soft spot for distributed systems that just... work." },
-  { speaker: 'AYUB', text: "Complex flows, real-time data, cloud automation — that's my daily grind. I learn fast, ship faster, and keep the architecture elegant. Full White clean, Blue Ball bold." },
+  { speaker: 'AYUB', text: "Complex flows, real-time data, cloud automation — that's my daily grind. I learn fast, ship faster, and keep the architecture clean and resilient." },
 ]
 
 const authorImages = [
@@ -128,7 +128,7 @@ export function About() {
             </div>
 
             <div className="bmw-card rounded-2xl p-5 space-y-3 text-sm leading-relaxed">
-              <p className="text-black">Staff Web Programmer at Penerbit Erlangga (Feb 2026 — Present). I build elegant, efficient web systems — Full White simplicity on the surface, Blue Ball energy underneath.</p>
+              <p className="text-black">Staff Web Programmer at Penerbit Erlangga (Feb 2026 — Present). I build elegant, efficient web systems — simple and intuitive on the surface, powerful architecture underneath.</p>
               <p className="text-[#6B7280]">GCP • Redis • PostgreSQL • Golang • React — with a love for scalable web apps and clean, maintainable code.</p>
               <div className="flex flex-wrap gap-1.5 pt-2">
                 {['Golang', 'React', 'PostgreSQL', 'Redis', 'GCP', 'System Design'].map((t) => (

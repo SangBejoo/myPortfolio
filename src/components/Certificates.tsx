@@ -39,7 +39,7 @@ export default function Certificates() {
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black">Certifications</h2>
           <div className="w-12 h-[3px] m-stripe rounded-full mx-auto mt-3" />
-          <p className="text-[#6B7280] max-w-xl mx-auto mt-3 text-sm">Professional credentials — like badges on a driver’s racing suit.</p>
+          <p className="text-[#6B7280] max-w-xl mx-auto mt-3 text-sm">Professional credentials and validated industry certifications.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

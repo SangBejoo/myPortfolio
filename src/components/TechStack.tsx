@@ -33,11 +33,11 @@ export function TechStack() {
         className="max-w-5xl mx-auto mb-10 text-center"
       >
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-black/5 shadow-sm text-[11px] font-mono tracking-widest mb-3 text-[#6B7280]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#009ADA] animate-pulse" /> CHAPTER 04 • ARSENAL • BLUE BALL EDITION
+          <span className="w-1.5 h-1.5 rounded-full bg-[#009ADA] animate-pulse" /> CHAPTER 04 • ARSENAL
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black">Tech Stack</h2>
         <div className="w-12 h-[3px] m-stripe rounded-full mx-auto mt-3" />
-        <p className="text-[#6B7280] text-sm mt-3">Like tuning a BMW — every tool chosen for precision.</p>
+        <p className="text-[#6B7280] text-sm mt-3">Every tool chosen with purpose for performance, reliability, and precision.</p>
       </motion.div>
 
       <div className="relative overflow-hidden py-2">
