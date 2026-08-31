@@ -24,20 +24,20 @@ const techStack: TechIcon[] = [
 
 export function TechStack() {
   return (
-    <section id="tech" className="py-16 sm:py-20 px-4 overflow-hidden relative">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-bmw-sapphire/[0.03] to-transparent" />
+    <section id="tech" className="py-16 sm:py-20 px-4 overflow-hidden relative bg-white">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#F0F7FF] via-white to-white" />
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="max-w-5xl mx-auto mb-10 text-center"
       >
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-effect text-[11px] font-mono tracking-widest mb-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-bmw-daytona animate-pulse" /> CHAPTER 04 • ARSENAL • TITAN SILVER EDITION
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-black/5 shadow-sm text-[11px] font-mono tracking-widest mb-3 text-[#6B7280]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#009ADA] animate-pulse" /> CHAPTER 04 • ARSENAL • BLUE BALL EDITION
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-bmw-alpine">Tech Stack</h2>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black">Tech Stack</h2>
         <div className="w-12 h-[3px] m-stripe rounded-full mx-auto mt-3" />
-        <p className="text-bmw-mineral text-sm mt-3">Like tuning a BMW — every tool chosen for precision.</p>
+        <p className="text-[#6B7280] text-sm mt-3">Like tuning a BMW — every tool chosen for precision.</p>
       </motion.div>
 
       <div className="relative overflow-hidden py-2">
@@ -49,17 +49,17 @@ export function TechStack() {
           {[...techStack, ...techStack, ...techStack].map((tech, i) => (
             <div
               key={`${tech.name}-${i}`}
-              className="flex items-center gap-2.5 px-5 py-3 bmw-card rounded-full min-w-fit group cursor-pointer hover:border-bmw-estoril/30 transition-colors"
+              className="flex items-center gap-2.5 px-5 py-3 bg-white border border-black/5 shadow-sm rounded-full min-w-fit group cursor-pointer hover:border-[#009ADA]/20 hover:shadow-md transition-all"
             >
               <span className="text-lg">{tech.icon}</span>
-              <span className="font-mono text-bmw-alpine font-semibold text-sm group-hover:text-bmw-daytona transition-colors">
+              <span className="font-mono text-black font-semibold text-sm group-hover:text-[#009ADA] transition-colors">
                 {tech.name}
               </span>
             </div>
           ))}
         </motion.div>
-        <div className="absolute top-0 left-0 w-24 sm:w-40 h-full bg-gradient-to-r from-bmw-carbon to-transparent pointer-events-none" />
-        <div className="absolute top-0 right-0 w-24 sm:w-40 h-full bg-gradient-to-l from-bmw-carbon to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 w-24 sm:w-40 h-full bg-gradient-to-r from-white to-transparent pointer-events-none" />
+        <div className="absolute top-0 right-0 w-24 sm:w-40 h-full bg-gradient-to-l from-white to-transparent pointer-events-none" />
       </div>
     </section>
   )

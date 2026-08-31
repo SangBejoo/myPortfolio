@@ -32,22 +32,20 @@ export function DialogueBox({
 }: DialogueBoxProps) {
   return (
     <div className="vn-dialogue rounded-xl overflow-hidden w-full">
-      {/* Nameplate */}
       <div className="flex items-center justify-between">
         <div className="vn-nameplate">
           <span className="w-1.5 h-1.5 rounded-full bg-white/90 animate-pulse" />
           {speaker}
-          <span className="hidden sm:inline opacity-60 font-normal ml-1">— {speakerColor || 'ESTORIL BLUE'}</span>
+          <span className="hidden sm:inline opacity-70 font-normal ml-1">— {speakerColor || 'BLUE BALL'}</span>
         </div>
-        {/* Auto / controls */}
         <div className="flex items-center gap-1 pr-3">
           {onToggleAuto && (
             <button
               onClick={onToggleAuto}
               className={`px-2.5 py-1 rounded-full text-[10px] font-mono tracking-widest border transition-all flex items-center gap-1 ${
                 autoPlay
-                  ? 'bg-bmw-estoril border-bmw-estoril text-white'
-                  : 'bg-transparent border-bmw-titan/20 text-bmw-titan hover:text-bmw-alpine hover:border-bmw-titan/40'
+                  ? 'bg-[#009ADA] border-[#009ADA] text-white'
+                  : 'bg-white border-black/10 text-[#6B7280] hover:text-black hover:border-[#009ADA]/30'
               }`}
             >
               {autoPlay ? <Pause size={10} /> : <Play size={10} />}
@@ -56,7 +54,7 @@ export function DialogueBox({
           )}
           <button
             onClick={onSkipTypewriter}
-            className="p-1.5 rounded-full border border-bmw-titan/15 text-bmw-titan hover:text-bmw-alpine hover:border-bmw-titan/30 transition-colors"
+            className="p-1.5 rounded-full border border-black/10 text-[#6B7280] hover:text-black hover:border-[#009ADA]/30 bg-white transition-colors"
             title="Skip"
           >
             <SkipForward size={12} />
@@ -64,16 +62,14 @@ export function DialogueBox({
         </div>
       </div>
 
-      {/* Text area */}
       <div className="px-5 sm:px-7 pt-4 pb-5 relative min-h-[96px] flex flex-col justify-center">
-        <p className="text-[15px] sm:text-[17px] leading-relaxed text-bmw-alpine font-light tracking-wide">
+        <p className="text-[15px] sm:text-[17px] leading-relaxed text-black font-light tracking-wide">
           {text}
-          {!isTypingComplete && <span className="inline-block w-[2px] h-[1.1em] bg-bmw-daytona ml-0.5 -mb-1 animate-pulse" />}
+          {!isTypingComplete && <span className="inline-block w-[2px] h-[1.1em] bg-[#009ADA] ml-0.5 -mb-1 animate-pulse" />}
         </p>
 
-        {/* Bottom bar: hint + next */}
         <div className="flex items-center justify-between mt-4">
-          <span className="text-[10px] font-mono tracking-[0.18em] text-bmw-mineral uppercase">
+          <span className="text-[10px] font-mono tracking-[0.18em] text-[#6B7280] uppercase">
             {isTypingComplete ? 'Click to continue • Press → or Space' : 'Click to skip typing'}
           </span>
 
@@ -81,7 +77,7 @@ export function DialogueBox({
             {hasPrev && onPrev && (
               <button
                 onClick={onPrev}
-                className="w-8 h-8 rounded-full btn-bmw-ghost flex items-center justify-center text-xs"
+                className="w-8 h-8 rounded-full bg-white border border-black/10 flex items-center justify-center text-xs hover:border-[#009ADA]/30"
               >
                 ‹
               </button>
@@ -94,16 +90,15 @@ export function DialogueBox({
               className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
                 isTypingComplete
                   ? 'btn-bmw-primary vn-next-indicator'
-                  : 'bg-bmw-alpine/10 border border-bmw-alpine/20 text-bmw-alpine'
+                  : 'bg-[#F0F7FF] border border-[#009ADA]/20 text-[#009ADA]'
               }`}
               aria-label={isTypingComplete ? 'Next' : 'Skip typing'}
             >
-              <ChevronDown size={16} className={isTypingComplete ? 'text-white' : 'text-bmw-alpine'} />
+              <ChevronDown size={16} className={isTypingComplete ? 'text-white' : 'text-[#009ADA]'} />
             </button>
           </div>
         </div>
 
-        {/* M stripe bottom accent */}
         <div className="absolute bottom-0 left-0 right-0 h-[2px] opacity-60">
           <div className="m-stripe h-full" />
         </div>
@@ -112,7 +107,6 @@ export function DialogueBox({
   )
 }
 
-// Typewriter hook
 export function useTypewriter(text: string, speed: number = 18, enabled: boolean = true) {
   const [displayed, setDisplayed] = useState('')
   const [done, setDone] = useState(false)
@@ -137,7 +131,6 @@ export function useTypewriter(text: string, speed: number = 18, enabled: boolean
       return
     }
     const id = setTimeout(() => {
-      // type 1-2 chars for natural VN feel
       const chunk = text.slice(i, i + 1)
       setDisplayed((prev) => prev + chunk)
       if (i + 1 >= text.length) setDone(true)
@@ -191,7 +184,7 @@ export function VNChoice({
           →
         </span>
       </div>
-      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-bmw-alpine/0 group-hover:bg-bmw-alpine/80 transition-colors" />
+      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-white/0 group-hover:bg-white/80 transition-colors" />
     </motion.button>
   )
 }

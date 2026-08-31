@@ -7,8 +7,8 @@ interface BadgeProps {
 export function Badge({ children, className = "", variant = "default" }: BadgeProps) {
   const baseClasses = "px-2.5 py-1 border text-xs font-mono rounded-full transition-colors"
   const variantClasses = variant === "secondary" 
-    ? "bg-bmw-estoril/15 border-bmw-estoril/30 text-bmw-daytona hover:bg-bmw-estoril/20"
-    : "bg-bmw-alpine/[0.06] border-bmw-titan/15 text-bmw-alpine hover:bg-bmw-alpine/[0.10] hover:border-bmw-titan/25"
+    ? "bg-[#009ADA]/10 border-[#009ADA]/20 text-[#009ADA] hover:bg-[#009ADA]/15"
+    : "bg-[#F0F7FF] border-black/5 text-black hover:bg-white hover:border-[#009ADA]/15"
 
   return (
     <span className={`${baseClasses} ${variantClasses} ${className}`}>

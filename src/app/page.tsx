@@ -26,7 +26,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="bg-bmw-carbon text-bmw-alpine overflow-x-hidden selection:bg-bmw-estoril/30">
+    <main className="bg-white text-black overflow-x-hidden selection:bg-bmw-estoril/20">
       <Navigation />
       {/* Progress tachometer bar under nav */}
       <div className="fixed top-[59px] sm:top-[63px] left-0 right-0 z-40 pointer-events-none">
