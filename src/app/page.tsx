@@ -11,6 +11,7 @@ import { ProjectVN } from '@/components/vn/ProjectVN'
 import Certificates from '@/components/Certificates'
 import { TechStack } from '@/components/TechStack'
 import { useEffect, useState } from 'react'
+import { BackToTop } from '@/components/BackToTop'
 
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -53,6 +54,9 @@ export default function Home() {
           ◀ click dialogue • arrow keys • auto ▶
         </span>
       </div>
+
+      {/* Floating Back to Top — BMW Blue Ball */}
+      <BackToTop />
     </main>
   )
 }

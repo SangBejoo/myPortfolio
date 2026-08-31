@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Gamepad2 } from 'lucide-react'
+import { Menu, X, Gamepad2, ArrowUp } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { ThemeToggle } from './ThemeProvider'
@@ -89,6 +89,14 @@ export function Navigation() {
             <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-emerald-500">ON</span>
           </div>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label="Back to top"
+            title="Back to top (TOP)"
+            className="hidden sm:flex w-9 h-9 rounded-full bg-white dark:bg-white/10 border border-black/10 dark:border-white/10 items-center justify-center hover:border-[#009ADA]/30 hover:text-[#009ADA] dark:hover:text-white transition-colors shadow-sm group"
+          >
+            <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
+          </button>
           <ThemeToggle />
           <a href="mailto:ayubsubagiya@gmail.com" className="hidden sm:inline-flex px-4 py-2 rounded-full btn-bmw-primary text-xs font-mono font-semibold">
             HIRE ME →
@@ -103,6 +111,16 @@ export function Navigation() {
         {isOpen && (
           <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="md:hidden border border-black/10 glass-effect-strong mx-3 mb-3 rounded-2xl overflow-hidden shadow-xl">
             <div className="p-2 space-y-1">
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                  setIsOpen(false)
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-xl font-mono text-sm tracking-wide bg-[#009ADA]/10 border border-[#009ADA]/20 text-[#009ADA]"
+              >
+                <span className="flex items-center gap-2"><ArrowUp size={14} /> TOP — Back to start</span>
+                <span className="text-xs">↑</span>
+              </button>
               {menuItems.map((item) => (
                 <a key={item.href} href={item.href} onClick={() => setIsOpen(false)} className={`flex items-center justify-between px-4 py-3 rounded-xl font-mono text-sm tracking-wide transition-colors ${active === item.id ? 'bg-[#009ADA] text-white' : 'text-[#6B7280] hover:text-black hover:bg-black/[0.04]'}`}>
                   {item.label}
