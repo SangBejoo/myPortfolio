@@ -42,6 +42,7 @@ export function CharacterStage({ active = true, variant = 'hero' }: CharacterSta
             src={src}
             alt={label}
             fill
+            sizes="(max-width: 640px) 340px, (max-width: 1024px) 420px, 420px"
             className="object-cover object-top rounded-[20px] group-hover:scale-[1.02] transition-transform duration-500"
             priority
             style={{

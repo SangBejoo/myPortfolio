@@ -138,6 +138,9 @@ const vnProjects: VNProject[] = [
       category: 'erlangga',
       badge: 'ERLANGGA',
     },
+    description: 'Fault-tolerant CBT exam engine with real-time auto-save, anti-cheat device lock, and high-concurrency submission handling at Penerbit Erlangga scale.',
+    vnLine: 'The exam must never fail. Every answer is saved instantly via Redis, even when hundreds submit in the last second.',
+    imageUrl: '/images/projects/cbt-main.png',
     images: ['/images/projects/cbt-main.png','/images/projects/cbt-1.png','/images/projects/cbt-2.png','/images/projects/cbt-3.png','/images/projects/cbt-4.png','/images/projects/cbt-5.png','/images/projects/cbt-6.png','/images/projects/cbt-7.png','/images/projects/cbt-8.png'],
     cgDialogues: [
       {
@@ -546,7 +549,14 @@ export function ProjectVN() {
                 className="absolute inset-0 cursor-zoom-in group/cg"
                 onClick={() => setZoomSrc(project.images?.[cgIndex] || project.imageUrl)}
               >
-                <Image src={project.images?.[cgIndex] || project.imageUrl} alt={project.title} fill className="object-cover group-hover/cg:scale-[1.01] transition-transform" priority />
+                <Image
+                  src={project.images?.[cgIndex] || project.imageUrl}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 750px"
+                  className="object-cover group-hover/cg:scale-[1.01] transition-transform"
+                  priority
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 <div className="absolute inset-0 opacity-10" style={{ background: 'linear-gradient(180deg, rgba(0,154,218,0.15) 0%, transparent 40%)' }} />
                 <div className="absolute inset-0 bg-[#009ADA]/0 group-hover/cg:bg-[#009ADA]/5 transition-colors flex items-center justify-center opacity-0 group-hover/cg:opacity-100">
