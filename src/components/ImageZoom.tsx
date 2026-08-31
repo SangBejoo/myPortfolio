@@ -48,13 +48,17 @@ export function ImageZoom({ src, alt, isOpen, onClose, title }: ImageZoomProps) 
     setScale(s => Math.min(4, Math.max(0.5, s + delta)))
   }
 
+  const hasMovedRef = useRef(false)
+
   const onMouseDown = (e: React.MouseEvent) => {
+    hasMovedRef.current = false
     if (scale <= 1) return
     setDragging(true)
     setStart({ x: e.clientX - pos.x, y: e.clientY - pos.y })
   }
   const onMouseMove = (e: React.MouseEvent) => {
     if (!dragging) return
+    hasMovedRef.current = true
     setPos({ x: e.clientX - start.x, y: e.clientY - start.y })
   }
   const onMouseUp = () => setDragging(false)
@@ -67,13 +71,13 @@ export function ImageZoom({ src, alt, isOpen, onClose, title }: ImageZoomProps) 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex flex-col bg-white/95 dark:bg-black/90 backdrop-blur-md"
+        className="fixed inset-0 z-[100] flex flex-col bg-white/95 dark:bg-black/90 backdrop-blur-md cursor-pointer"
         onClick={onClose}
       >
         <div className="m-stripe" />
         {/* Header */}
         <div
-          className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-black/5 dark:border-white/10 bg-white/80 dark:bg-black/40 backdrop-blur shrink-0"
+          className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-black/5 dark:border-white/10 bg-white/80 dark:bg-black/40 backdrop-blur shrink-0 cursor-default"
           onClick={e => e.stopPropagation()}
         >
           <div className="flex items-center gap-3">
@@ -82,7 +86,7 @@ export function ImageZoom({ src, alt, isOpen, onClose, title }: ImageZoomProps) 
             </div>
             <div>
               <p className="text-sm font-mono font-semibold text-black dark:text-white">{title || alt}</p>
-              <p className="text-xs font-mono text-[#6B7280] dark:text-white/60">{Math.round(scale * 100)}% • Scroll to zoom • Drag to pan • ESC to close</p>
+              <p className="text-xs font-mono text-[#6B7280] dark:text-white/60">{Math.round(scale * 100)}% • Scroll to zoom • Drag to pan • Click outside or ESC to close</p>
             </div>
           </div>
           <div className="flex items-center gap-1.5">
@@ -107,8 +111,12 @@ export function ImageZoom({ src, alt, isOpen, onClose, title }: ImageZoomProps) 
         {/* Image stage */}
         <div
           ref={containerRef}
-          className="flex-1 relative overflow-hidden flex items-center justify-center p-4 sm:p-8 cursor-grab active:cursor-grabbing select-none"
-          onClick={e => e.stopPropagation()}
+          className="flex-1 relative overflow-hidden flex items-center justify-center p-4 sm:p-8 cursor-pointer select-none"
+          onClick={(e) => {
+            if (!hasMovedRef.current) {
+              onClose()
+            }
+          }}
           onWheel={onWheel}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
@@ -118,9 +126,15 @@ export function ImageZoom({ src, alt, isOpen, onClose, title }: ImageZoomProps) 
           <motion.div
             animate={{ scale, x: pos.x, y: pos.y }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="relative max-w-[90vw] max-h-[75vh] w-auto h-auto"
+            className="relative max-w-[90vw] max-h-[75vh] w-auto h-auto cursor-default"
             style={{ cursor: scale > 1 ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
-            onClick={() => scale === 1 && setScale(2)}
+            onClick={(e) => {
+              e.stopPropagation()
+              if (!hasMovedRef.current) {
+                setScale((s) => (s === 1 ? 2 : 1))
+                if (scale !== 1) setPos({ x: 0, y: 0 })
+              }
+            }}
           >
             {/* use img for zoom to allow natural size */}
             <img
@@ -133,12 +147,15 @@ export function ImageZoom({ src, alt, isOpen, onClose, title }: ImageZoomProps) 
 
           {/* hint */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-black/70 dark:bg-white/10 backdrop-blur text-white text-xs font-mono border border-white/10 pointer-events-none">
-            {scale === 1 ? 'Click image to zoom • Scroll to zoom' : `Zoom ${Math.round(scale*100)}% • Drag to pan`}
+            {scale === 1 ? 'Click image to zoom • Click outside to close' : `Zoom ${Math.round(scale*100)}% • Drag to pan • Click outside to close`}
           </div>
         </div>
 
         {/* Footer thumb */}
-        <div className="shrink-0 p-3 border-t border-black/5 dark:border-white/10 bg-white/60 dark:bg-black/20 backdrop-blur text-center">
+        <div
+          className="shrink-0 p-3 border-t border-black/5 dark:border-white/10 bg-white/60 dark:bg-black/20 backdrop-blur text-center cursor-default"
+          onClick={e => e.stopPropagation()}
+        >
           <p className="text-xs font-mono text-[#6B7280] dark:text-white/60">SangBejoo Portfolio • Click outside to close</p>
         </div>
       </motion.div>

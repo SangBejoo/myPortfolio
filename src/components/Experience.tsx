@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 interface ExperienceItem {
   title: string
@@ -8,7 +9,7 @@ interface ExperienceItem {
   period: string
   description: string
   skills: string[]
-  icon?: string
+  logo: string
 }
 
 const experiences: ExperienceItem[] = [
@@ -16,9 +17,9 @@ const experiences: ExperienceItem[] = [
     title: 'Staff Web Programmer',
     company: 'Penerbit Erlangga',
     period: 'Feb 2026 — Present',
-    description: 'Building and maintaining large-scale web platforms for Indonesia\'s leading publisher. Developing high-traffic systems with Golang & React, optimized PostgreSQL + Redis, deployed on GCP — delivering Kami Melayani Ilmu Pengetahuan at scale.',
-    skills: ['GCP', 'Redis', 'PostgreSQL', 'Golang', 'React'],
-    icon: '📚',
+    description: 'Building and maintaining large-scale web platforms for Indonesia\'s leading publisher, including Intelecto (LMS & digital book ecosystem). Developing high-traffic systems with Golang & React, optimized PostgreSQL + Redis, deployed on GCP — delivering Kami Melayani Ilmu Pengetahuan at scale.',
+    skills: ['GCP', 'Redis', 'PostgreSQL', 'Golang', 'React', 'LMS'],
+    logo: '/images/erlangga.jpg',
   },
   {
     title: 'Backend Developer',
@@ -26,7 +27,7 @@ const experiences: ExperienceItem[] = [
     period: 'Oct 2024 — Jan 2025',
     description: 'Built parking management & real-time driver tracking microservices. High-concurrency handlers, optimized Postgres + Redis, Dockerized services with high performance and low latency.',
     skills: ['Golang', 'Gin', 'PostgreSQL', 'Redis', 'Docker', 'REST APIs'],
-    icon: '🏢',
+    logo: '/images/bluebird.png',
   },
   {
     title: 'Cloud Computing Cohort',
@@ -34,7 +35,7 @@ const experiences: ExperienceItem[] = [
     period: 'Jun 2023 — Dec 2023',
     description: 'Specialized in GCP, Terraform IaC, and CI/CD. Designed scalable backend for driver management — from Cloud Run to Kubernetes, all pipeline-green.',
     skills: ['GCP', 'Terraform', 'Kubernetes', 'Cloud Run', 'GitHub Actions', 'CI/CD'],
-    icon: '☁️',
+    logo: '/images/bangkit.png',
   },
 ]
 
@@ -76,10 +77,15 @@ export function Experience() {
 
               <div className="bmw-card rounded-2xl p-5 sm:p-6 hover-glow group">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 mb-3">
-                  <div className="flex gap-3">
-                    <span className="w-10 h-10 rounded-xl bg-[#009ADA]/10 border border-[#009ADA]/15 flex items-center justify-center text-lg shrink-0">
-                      {exp.icon}
-                    </span>
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white border border-black/10 shadow-sm p-1.5 flex items-center justify-center shrink-0 overflow-hidden group-hover:border-[#009ADA]/30 transition-colors">
+                      <Image
+                        src={exp.logo}
+                        alt={exp.company}
+                        fill
+                        className="object-contain p-1 rounded-lg"
+                      />
+                    </div>
                     <div>
                       <h3 className="text-base sm:text-lg font-bold text-black group-hover:text-[#009ADA] transition-colors">{exp.title}</h3>
                       <p className="text-[#009ADA] font-mono text-xs sm:text-sm">{exp.company}</p>
