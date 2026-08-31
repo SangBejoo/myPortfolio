@@ -256,3 +256,60 @@ h1, h2, h3, h4, h5, h6 {
 .section-light-alt {
   background: #F8FAFC;
 }
+
+/* ===== DARK MODE OVERRIDES — when html.dark ===== */
+html.dark body {
+  background: #04070D;
+  color: #F2F0EB;
+}
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+  color: #F2F0EB;
+}
+html.dark .glass-effect {
+  background: rgba(10,16,32,0.6);
+  border-color: rgba(168,176,187,0.12);
+  box-shadow: none;
+}
+html.dark .glass-effect-strong {
+  background: rgba(4,7,13,0.88);
+  border-color: rgba(168,176,187,0.14);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+html.dark .bmw-card {
+  background: linear-gradient(135deg, rgba(10,16,32,0.95) 0%, rgba(4,7,13,0.98) 100%);
+  border-color: rgba(168,176,187,0.10);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+html.dark .vn-dialogue {
+  background: linear-gradient(180deg, rgba(4,7,13,0.92) 0%, rgba(10,16,32,0.96) 100%);
+  border-color: rgba(168,176,187,0.14);
+  border-top-color: rgba(0,154,218,0.25);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+html.dark .btn-bmw-ghost {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.10);
+  color: #F2F0EB;
+  box-shadow: none;
+}
+html.dark .btn-bmw-ghost:hover {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(0,154,218,0.25);
+  color: #FFFFFF;
+}
+html.dark ::-webkit-scrollbar-track { background: #04070D; }
+html.dark ::-webkit-scrollbar-thumb { background: #0F2340; }
+html.dark ::selection { background: rgba(0,154,218,0.25); color: #F2F0EB; }
+
+/* Tailwind utility overrides for dark */
+html.dark .text-black { color: #F2F0EB !important; }
+html.dark .bg-white { background-color: #0F172A !important; }
+html.dark .bg-\[\#F0F7FF\] { background-color: rgba(255,255,255,0.06) !important; }
+html.dark .bg-\[\#F8FAFC\] { background-color: #0A1020 !important; }
+html.dark .border-black\/5 { border-color: rgba(255,255,255,0.08) !important; }
+html.dark .border-black\/10 { border-color: rgba(255,255,255,0.10) !important; }
+html.dark .text-\[\#6B7280\] { color: #9CA3AF !important; }
+html.dark .text-\[\#374151\] { color: #D1D5DB !important; }
+html.dark .text-\[\#4B5563\] { color: #9CA3AF !important; }
+html.dark .vn-backdrop { background: #04070D !important; }
+html.dark .vn-backdrop > div { opacity: 0.6; }

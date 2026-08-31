@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, ExternalLink, Github, Maximize2, X, Grid3x3 } from 'lucide-react'
 import { DialogueBox, useTypewriter } from './DialogueBox'
+import { ImageZoom } from '../ImageZoom'
 
 interface VNProject {
   id: string
@@ -99,6 +100,7 @@ export function ProjectVN() {
   const [cgIndex, setCgIndex] = useState(0)
   const [showGallery, setShowGallery] = useState(false)
   const [auto, setAuto] = useState(false)
+  const [zoomSrc, setZoomSrc] = useState<string | null>(null)
 
   const project = vnProjects[index]
   const totalCG = project.images?.length || 1
@@ -148,10 +150,10 @@ export function ProjectVN() {
             <span className="hidden sm:inline-flex w-8 h-[1px] bg-black/10" />
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black tracking-tight">Featured Projects</h2>
-          <p className="text-[#6B7280] mt-2 max-w-xl text-sm leading-relaxed">Click <span className="text-black font-mono font-semibold">NEXT</span> like a visual novel — each scene is a CG with dialogue.</p>
+          <p className="text-[#6B7280] mt-2 max-w-xl text-sm leading-relaxed">Click <span className="text-black font-mono font-semibold">NEXT</span> like a visual novel — each project is a CG with dialogue.</p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-[#6B7280]">{index + 1} / {vnProjects.length} SCENES</span>
+          <span className="text-xs font-mono text-[#6B7280]">{index + 1} / {vnProjects.length} PROJECTS</span>
           <div className="w-24 h-1.5 rounded-full bg-black/5 overflow-hidden">
             <div className="h-full bg-[#009ADA] transition-all duration-500" style={{ width: `${((index + 1) / vnProjects.length) * 100}%` }} />
           </div>
@@ -168,11 +170,15 @@ export function ProjectVN() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
-                className="absolute inset-0"
+                className="absolute inset-0 cursor-zoom-in group/cg"
+                onClick={() => setZoomSrc(project.images?.[cgIndex] || project.imageUrl)}
               >
-                <Image src={project.images?.[cgIndex] || project.imageUrl} alt={project.title} fill className="object-cover" priority />
+                <Image src={project.images?.[cgIndex] || project.imageUrl} alt={project.title} fill className="object-cover group-hover/cg:scale-[1.01] transition-transform" priority />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 <div className="absolute inset-0 opacity-10" style={{ background: 'linear-gradient(180deg, rgba(0,154,218,0.15) 0%, transparent 40%)' }} />
+                <div className="absolute inset-0 bg-[#009ADA]/0 group-hover/cg:bg-[#009ADA]/5 transition-colors flex items-center justify-center opacity-0 group-hover/cg:opacity-100">
+                  <span className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur text-black text-xs font-mono shadow border border-black/5">🔍 Click to Zoom</span>
+                </div>
                 <div className="absolute top-3 left-3 flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur border border-black/5 text-[11px] font-mono tracking-widest text-black">
                     {project.subtitle}
@@ -248,7 +254,7 @@ export function ProjectVN() {
             <div className="flex items-start justify-between gap-3 mb-3">
               <h3 className="text-xl font-bold text-black leading-tight">{project.title}</h3>
               <span className="px-2 py-1 rounded-full bg-[#009ADA]/10 border border-[#009ADA]/15 text-[#009ADA] text-[11px] font-mono whitespace-nowrap">
-                SCENE {String(index + 1).padStart(2, '0')}
+                PROJECT {String(index + 1).padStart(2, '0')}
               </span>
             </div>
             <p className="text-sm text-[#374151] leading-relaxed">{project.description}</p>
@@ -285,10 +291,10 @@ export function ProjectVN() {
 
             <div className="grid grid-cols-2 gap-2 mt-5 pt-5 border-t border-black/5">
               <button onClick={prevProject} className="px-3 py-2.5 rounded-xl bg-white border border-black/10 text-black text-sm font-mono flex items-center justify-center gap-1.5 hover:border-[#009ADA]/30">
-                <ChevronLeft size={14} /> PREV SCENE
+                <ChevronLeft size={14} /> PREV PROJECT
               </button>
               <button onClick={nextProject} className="px-3 py-2.5 rounded-xl btn-bmw-primary text-sm font-mono flex items-center justify-center gap-1.5">
-                NEXT SCENE <ChevronRight size={14} />
+                NEXT PROJECT <ChevronRight size={14} />
               </button>
             </div>
           </div>
@@ -297,35 +303,39 @@ export function ProjectVN() {
 
       <AnimatePresence>
         {showGallery && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-white/95 backdrop-blur-md flex flex-col" onClick={() => setShowGallery(false)}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-white/95 dark:bg-black/90 backdrop-blur-md flex flex-col" onClick={() => setShowGallery(false)}>
             <div className="m-stripe" />
-            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-black/5" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-black/5 dark:border-white/10" onClick={(e) => e.stopPropagation()}>
               <div>
-                <h3 className="text-black font-bold">{project.title} — CG Gallery</h3>
-                <p className="text-xs font-mono text-[#6B7280]">{totalCG} images • Click to view</p>
+                <h3 className="text-black dark:text-white font-bold">{project.title} — CG Gallery</h3>
+                <p className="text-xs font-mono text-[#6B7280] dark:text-white/60">{totalCG} images • Click to view • Click image to zoom 🔍</p>
               </div>
-              <button onClick={() => setShowGallery(false)} className="w-9 h-9 rounded-full bg-white border border-black/10 flex items-center justify-center">
+              <button onClick={() => setShowGallery(false)} className="w-9 h-9 rounded-full bg-white dark:bg-white/10 border border-black/10 dark:border-white/10 flex items-center justify-center">
                 <X size={18} />
               </button>
             </div>
             <div className="flex-1 overflow-auto p-4 sm:p-6" onClick={(e) => e.stopPropagation()}>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
                 {(project.images || [project.imageUrl]).map((img, i) => (
-                  <button
+                  <div
                     key={i}
-                    onClick={() => { setCgIndex(i); setShowGallery(false) }}
-                    className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-black/5 hover:border-[#009ADA]/30 transition-colors bg-[#F0F7FF]"
+                    className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-black/5 dark:border-white/10 hover:border-[#009ADA]/30 transition-colors bg-[#F0F7FF] dark:bg-white/5"
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-white/90 text-black text-[10px] font-mono border border-black/5">CG {i + 1}</span>
-                  </button>
+                    <button onClick={() => { setCgIndex(i); setShowGallery(false) }} className="absolute inset-0 w-full h-full">
+                      <img src={img} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <span className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-white/90 text-black text-[10px] font-mono border border-black/5">CG {i + 1}</span>
+                    </button>
+                    <button onClick={() => setZoomSrc(img)} className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 backdrop-blur border border-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#009ADA] hover:text-white transition-all text-black">🔍</button>
+                  </div>
                 ))}
               </div>
+              <p className="text-center text-xs font-mono text-[#6B7280] mt-4">Click CG to view • Click 🔍 to zoom • Use PREV/NEXT PROJECT</p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+      {zoomSrc && <ImageZoom src={zoomSrc} alt={project.title} isOpen={!!zoomSrc} onClose={() => setZoomSrc(null)} title={`${project.title} — CG ${cgIndex + 1}`} />}
     </section>
   )
 }

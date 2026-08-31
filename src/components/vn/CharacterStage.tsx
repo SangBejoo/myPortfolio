@@ -1,6 +1,8 @@
 'use client'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useState } from 'react'
+import { ImageZoom } from '../ImageZoom'
 
 interface CharacterStageProps {
   active?: boolean
@@ -8,8 +10,11 @@ interface CharacterStageProps {
 }
 
 export function CharacterStage({ active = true, variant = 'hero' }: CharacterStageProps) {
+  const [zoomOpen, setZoomOpen] = useState(false)
+  const src = variant === 'about' ? '/images/author/profile.jpg' : '/images/author/ayub.jpg'
+  const label = variant === 'about' ? 'Ayub — Profile (Casual)' : 'Ayub — Formal'
   return (
-    <div className="relative flex items-end justify-center select-none pointer-events-none">
+    <div className="relative flex items-end justify-center select-none">
       {/* Ambient glow behind character - BMW Blue Ball on white */}
       <div className="absolute inset-0 -z-10 flex items-center justify-center">
         <div className="w-[520px] h-[520px] rounded-full blur-[80px] opacity-[0.12]"
@@ -32,18 +37,21 @@ export function CharacterStage({ active = true, variant = 'hero' }: CharacterSta
           <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-40" />
         </div>
 
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full cursor-zoom-in group" onClick={() => setZoomOpen(true)}>
           <Image
-            src="/images/author/ayub.jpg"
-            alt="Ayub Subagiya - Character Sprite"
+            src={src}
+            alt={label}
             fill
-            className="object-cover object-top rounded-[20px]"
+            className="object-cover object-top rounded-[20px] group-hover:scale-[1.02] transition-transform duration-500"
             priority
             style={{
               filter: active ? 'contrast(1.02) saturate(1.05)' : 'grayscale(1)',
               objectPosition: '50% 22%',
             }}
           />
+          <div className="absolute inset-0 rounded-[20px] bg-[#009ADA]/0 group-hover:bg-[#009ADA]/5 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur text-black text-xs font-mono shadow">🔍 Zoom</span>
+          </div>
           <div className="absolute inset-0 rounded-[20px] opacity-[0.04] mix-blend-overlay" style={{ background: 'linear-gradient(180deg, #009ADA 0%, transparent 45%)' }} />
           <div className="absolute inset-0 rounded-[20px] bg-gradient-to-t from-white/60 via-transparent to-transparent" />
           <div className="absolute inset-0 rounded-[20px] border border-black/5 pointer-events-none" />
@@ -69,13 +77,14 @@ export function CharacterStage({ active = true, variant = 'hero' }: CharacterSta
         <div className="w-1 h-8 bg-[#8E44AD] rounded-full" />
         <div className="w-1 h-8 bg-[#E30613] rounded-full" />
       </div>
+      <ImageZoom src={src} alt={label} isOpen={zoomOpen} onClose={() => setZoomOpen(false)} title={label} />
     </div>
   )
 }
 
 export function VNBackdrop({ variant = 'default' }: { variant?: 'default' | 'project' | 'tech' }) {
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden bg-white">
+    <div className="vn-backdrop absolute inset-0 -z-10 overflow-hidden bg-white">
       <div className="absolute inset-0 bg-white" />
       <div
         className="absolute inset-0 opacity-[0.025]"

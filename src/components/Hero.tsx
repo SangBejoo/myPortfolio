@@ -75,7 +75,7 @@ export function Hero() {
   useEffect(() => {}, [sceneIdx])
 
   return (
-    <section id="hero" className="relative min-h-[96vh] flex flex-col overflow-hidden bg-white">
+    <section id="hero" className="relative min-h-[96vh] flex flex-col overflow-hidden bg-white dark:bg-[#04070D]">
       <VNBackdrop />
       <div className="h-[3px] m-stripe shrink-0" />
 

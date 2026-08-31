@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Gamepad2 } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { ThemeToggle } from './ThemeProvider'
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -44,22 +45,17 @@ export function Navigation() {
     >
       <div className="m-stripe" />
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-[56px] sm:h-[60px] flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-black/10 bg-white flex items-center justify-center shadow-sm">
-            <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 opacity-90">
-              <div className="bg-[#009ADA]" />
-              <div className="bg-white" />
-              <div className="bg-white" />
-              <div className="bg-[#009ADA]" />
-            </div>
-            <div className="absolute inset-[3px] rounded-full border border-white bg-white/0" />
-            <span className="relative text-[10px] font-black tracking-tighter text-black drop-shadow">as</span>
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#009ADA] to-[#0077B6] flex items-center justify-center text-white font-mono font-bold text-xs shadow-sm group-hover:scale-105 transition-transform">
+            SB
           </div>
           <div className="hidden sm:block">
-            <div className="font-mono font-bold text-black text-sm leading-none group-hover:text-[#009ADA] transition-colors">AYUB SUBAGIYA</div>
-            <div className="text-[10px] font-mono tracking-[0.18em] text-[#6B7280]">BMW • FULL WHITE • BLUE BALL</div>
+            <div className="font-mono font-bold text-black dark:text-white text-sm leading-none group-hover:text-[#009ADA] transition-colors">
+              SangBejoo <span className="font-normal text-xs text-[#6B7280]">/ Ayub Subagiya</span>
+            </div>
+            <div className="text-[10px] font-mono tracking-[0.18em] text-[#6B7280] mt-0.5">BACKEND & CLOUD ENGINEER</div>
           </div>
-          <span className="sm:hidden font-mono font-bold text-black">as.</span>
+          <span className="sm:hidden font-mono font-bold text-black dark:text-white text-sm">SangBejoo</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
@@ -89,14 +85,15 @@ export function Navigation() {
         <div className="flex items-center gap-2">
           <div className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-effect text-[11px] font-mono">
             <Gamepad2 size={12} className="text-[#009ADA]" />
-            <span className="text-[#6B7280]">VN MODE</span>
+            <span className="text-[#6B7280] hidden xl:inline">VN MODE</span>
             <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-emerald-500">ON</span>
           </div>
+          <ThemeToggle />
           <a href="mailto:ayubsubagiya@gmail.com" className="hidden sm:inline-flex px-4 py-2 rounded-full btn-bmw-primary text-xs font-mono font-semibold">
             HIRE ME →
           </a>
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden w-9 h-9 rounded-full bg-white border border-black/10 flex items-center justify-center shadow-sm" aria-label="Toggle menu">
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden w-9 h-9 rounded-full bg-white border border-black/10 flex items-center justify-center shadow-sm dark:bg-white/10 dark:border-white/10 dark:text-white" aria-label="Toggle menu">
             {isOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>

@@ -1,9 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { X, Award } from 'lucide-react'
+import { Award } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
+import { ImageZoom } from './ImageZoom'
 
 interface Certificate {
   id: string
@@ -23,18 +24,7 @@ const certificates: Certificate[] = [
 export function CertificateModal({ isOpen, certificate, onClose }: { isOpen: boolean; certificate: Certificate | null; onClose: () => void }) {
   if (!isOpen || !certificate) return null
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4" onClick={onClose}>
-      <motion.div initial={{ scale: 0.97, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
-        <div className="m-stripe rounded-t-xl" />
-        <button onClick={onClose} className="absolute -top-10 right-0 w-9 h-9 rounded-full bg-white border border-black/10 flex items-center justify-center shadow">
-          <X size={16} />
-        </button>
-        <div className="relative w-full rounded-2xl overflow-hidden bg-white shadow-2xl">
-          <Image src={certificate.imageUrl} alt={certificate.name} width={900} height={650} className="w-full h-auto" priority />
-        </div>
-        <p className="text-center text-[#6B7280] mt-3 text-sm font-mono">{certificate.issuer} • {certificate.name}</p>
-      </motion.div>
-    </div>
+    <ImageZoom src={certificate.imageUrl} alt={certificate.name} isOpen={isOpen} onClose={onClose} title={`${certificate.name} — ${certificate.issuer}`} />
   )
 }
 

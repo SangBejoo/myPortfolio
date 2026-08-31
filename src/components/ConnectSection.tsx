@@ -2,9 +2,12 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useState } from 'react'
 import { Mail, Linkedin, Github, ExternalLink, MessageCircle } from 'lucide-react'
+import { ImageZoom } from './ImageZoom'
 
 export function ConnectSection() {
+  const [zoom, setZoom] = useState<string | null>(null)
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-[1100px] mx-auto">
       <motion.div
@@ -19,13 +22,23 @@ export function ConnectSection() {
         </div>
 
         <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
-          <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="flex justify-center">
-            <div className="relative w-60 h-60 sm:w-72 sm:h-72 rounded-2xl overflow-hidden bg-white border border-black/5 p-1.5 shadow-sm">
+          <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="flex flex-col items-center gap-3">
+            <div className="relative w-60 h-60 sm:w-72 sm:h-72 rounded-2xl overflow-hidden bg-white border border-black/5 p-1.5 shadow-sm cursor-zoom-in group" onClick={() => setZoom('/images/author/profile.jpg')}>
               <div className="relative w-full h-full rounded-xl overflow-hidden">
-                <Image src="/images/author/ayub.jpg" alt="Ayub" fill className="object-cover object-top" style={{ objectPosition: '50% 20%' }} />
-                <div className="absolute inset-0 bg-gradient-to-t from-white/30 to-transparent" />
+                <Image src="/images/author/profile.jpg" alt="Ayub — Casual" fill className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" style={{ objectPosition: '50% 15%' }} />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent" />
                 <span className="absolute top-2 left-2 px-2 py-1 rounded-full bg-[#009ADA] text-white text-[10px] font-mono tracking-widest">READY TO CHAT</span>
+                <span className="absolute bottom-2 right-2 px-2 py-1 rounded-full bg-white/90 backdrop-blur border border-black/5 text-black text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity">🔍 Zoom</span>
               </div>
+            </div>
+            <div className="flex gap-2">
+              <button onClick={() => setZoom('/images/author/profile.jpg')} className="w-12 h-12 rounded-lg overflow-hidden border-2 border-[#009ADA] shadow-sm relative">
+                <Image src="/images/author/profile.jpg" alt="thumb 1" fill className="object-cover" />
+              </button>
+              <button onClick={() => setZoom('/images/author/ayub.jpg')} className="w-12 h-12 rounded-lg overflow-hidden border border-black/10 opacity-70 hover:opacity-100 relative">
+                <Image src="/images/author/ayub.jpg" alt="thumb 2" fill className="object-cover" />
+              </button>
+              <span className="text-[10px] font-mono text-[#6B7280] self-center ml-1">2 photos • click to zoom</span>
             </div>
           </motion.div>
 
@@ -58,6 +71,7 @@ export function ConnectSection() {
           </motion.div>
         </div>
       </motion.div>
+      {zoom && <ImageZoom src={zoom} alt="Ayub" isOpen={!!zoom} onClose={() => setZoom(null)} title={zoom.includes('profile') ? 'Ayub — Casual' : 'Ayub — Formal'} />}
     </section>
   )
 }
