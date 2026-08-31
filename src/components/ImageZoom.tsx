@@ -112,7 +112,7 @@ export function ImageZoom({ src, alt, isOpen, onClose, title }: ImageZoomProps) 
         <div
           ref={containerRef}
           className="flex-1 relative overflow-hidden flex items-center justify-center p-4 sm:p-8 cursor-pointer select-none"
-          onClick={(e) => {
+          onClick={() => {
             if (!hasMovedRef.current) {
               onClose()
             }
