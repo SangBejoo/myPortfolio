@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
   content: [
@@ -8,75 +9,65 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#FFFFFF',
-        foreground: '#000000',
-        muted: '#6B7280',
-        bmw: {
-          carbon: '#000000',
-          sapphire: '#F0F7FF',
-          midnight: '#E0F0FF',
-          alpine: '#FFFFFF',
-          titan: '#E5E7EB',
-          mineral: '#6B7280',
-          estoril: '#009ADA',
-          daytona: '#009ADA',
-          mBlue: '#009ADA',
-          mPurple: '#8E44AD',
-          mRed: '#E30613',
+        // Doodle-paper palette (fast view): paper surfaces, ink text, one accent
+        apple: {
+          bg: '#F5F1E6',
+          surface: '#FFFDF5',
+          'surface-hover': '#FFFFFF',
+          'surface-subtle': '#EFE9D8',
+          border: 'rgba(29, 29, 31, 0.14)',
+          'border-strong': 'rgba(29, 29, 31, 0.3)',
+          text: '#1D1D1F',
+          'text-secondary': '#6E6E73',
+          'text-tertiary': '#86868B',
+          blue: '#0A84FF',
+          'blue-hover': '#0071E3',
+          'blue-subtle': 'rgba(10, 132, 255, 0.12)',
+          green: '#30D158',
+          amber: '#FF9F0A',
         },
       },
       fontFamily: {
-        mono: ['IBM Plex Mono', 'monospace'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['IBM Plex Mono', 'monospace'],
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"SF Pro Text"',
+          '"SF Pro Display"',
+          '"Inter"',
+          'system-ui',
+          'sans-serif',
+        ],
+        mono: [
+          '"SF Mono"',
+          '"JetBrains Mono"',
+          'Menlo',
+          'Monaco',
+          'monospace',
+        ],
       },
-      animation: {
-        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
-        'fade-in-left': 'fadeInLeft 0.6s ease-out forwards',
-        'fade-in-right': 'fadeInRight 0.6s ease-out forwards',
-        'vn-float': 'vnFloat 6s ease-in-out infinite',
-        'vn-pulse-glow': 'vnPulseGlow 2s ease-in-out infinite',
-        'vn-scan': 'vnScan 8s linear infinite',
-        'vn-blink': 'vnBlink 1.2s step-end infinite',
-        'm-shimmer': 'mShimmer 3s linear infinite',
+      fontSize: {
+        // Apple HIG Strict 6-step scale
+        caption: ['12px', { lineHeight: '1.33', letterSpacing: '-0.01em' }],
+        body: ['14px', { lineHeight: '1.5', letterSpacing: '-0.015em' }],
+        subhead: ['16px', { lineHeight: '1.4', letterSpacing: '-0.02em' }],
+        title3: ['19px', { lineHeight: '1.35', letterSpacing: '-0.025em' }],
+        title2: ['24px', { lineHeight: '1.25', letterSpacing: '-0.03em' }],
+        title1: ['32px', { lineHeight: '1.2', letterSpacing: '-0.035em' }],
+        largeTitle: ['42px', { lineHeight: '1.15', letterSpacing: '-0.04em' }],
       },
-      keyframes: {
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        fadeInLeft: {
-          '0%': { opacity: '0', transform: 'translateX(-20px)' },
-          '100%': { opacity: '1', transform: 'translateX(0)' },
-        },
-        fadeInRight: {
-          '0%': { opacity: '0', transform: 'translateX(20px)' },
-          '100%': { opacity: '1', transform: 'translateX(0)' },
-        },
-        vnFloat: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-8px)' },
-        },
-        vnPulseGlow: {
-          '0%, 100%': { opacity: '0.6', boxShadow: '0 0 20px rgba(0,154,218,0.15)' },
-          '50%': { opacity: '1', boxShadow: '0 0 40px rgba(0,154,218,0.25)' },
-        },
-        vnScan: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(100%)' },
-        },
-        vnBlink: {
-          '0%, 50%': { opacity: '1' },
-          '51%, 100%': { opacity: '0' },
-        },
-        mShimmer: {
-          '0%': { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' },
-        },
+      borderRadius: {
+        appleSmall: '8px',
+        appleCard: '16px',
+        appleModal: '22px',
       },
-      backgroundImage: {
-        'bmw-m-stripe': 'linear-gradient(90deg, #009ADA 0%, #00B4E6 50%, #0077B6 100%)',
-        'bmw-carbon': 'radial-gradient(ellipse at top, rgba(0,154,218,0.06) 0%, transparent 60%)',
+      maxWidth: {
+        apple: '1180px',
+      },
+      transitionDuration: {
+        apple: '180ms',
+      },
+      transitionTimingFunction: {
+        apple: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
   },
