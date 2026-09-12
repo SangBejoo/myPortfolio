@@ -103,6 +103,13 @@ export function ShootingRangeScene({
   // One-by-one spawn system: only one target is live at a time.
   const activeIdRef = useRef<string | null>(null)
   const showTargetRef = useRef<((id: string | null) => void) | null>(null)
+  // Perf: mirror modal for the render loop + remember last hover to avoid
+  // a React render on every animation frame.
+  const activeModalRef = useRef<ActiveModalData>(null)
+  const hoverLockedRef = useRef(false)
+  // Perf: shared spark pool (no per-shot geometry/material allocs).
+  const sparkGeoRef = useRef<THREE.BoxGeometry | null>(null)
+  const sparkMatsRef = useRef(new Map<number, THREE.MeshBasicMaterial>())
 
   // Setup tracker items on mount
   useEffect(() => {
@@ -174,11 +181,18 @@ export function ShootingRangeScene({
     showTargetById(next.id)
   }, [showTargetById])
 
-  // Spawn 3D Particle Sparks
+  // Spawn 3D Particle Sparks (shared pooled geometry/materials — zero allocs per shot)
   const spawnHitSparks = useCallback((pos: THREE.Vector3, colorHex: number = 0x0A84FF, count: number = 24) => {
     if (!sceneRef.current) return
-    const geom = new THREE.BoxGeometry(0.06, 0.06, 0.06)
-    const mat = new THREE.MeshBasicMaterial({ color: colorHex })
+    if (!sparkGeoRef.current) {
+      sparkGeoRef.current = new THREE.BoxGeometry(0.06, 0.06, 0.06)
+    }
+    let mat = sparkMatsRef.current.get(colorHex)
+    if (!mat) {
+      mat = new THREE.MeshBasicMaterial({ color: colorHex })
+      sparkMatsRef.current.set(colorHex, mat)
+    }
+    const geom = sparkGeoRef.current
 
     for (let i = 0; i < count; i++) {
       const mesh = new THREE.Mesh(geom, mat)
@@ -337,6 +351,11 @@ export function ShootingRangeScene({
     handleShootRef.current = handleShoot
   }, [handleShoot])
 
+  // Mirror modal state for the render loop (pause rendering behind dossiers).
+  useEffect(() => {
+    activeModalRef.current = activeModal
+  }, [activeModal])
+
   // Roster tap: jump an uncleared target to the front, or re-read a cleared dossier.
   const handleSelectTargetById = useCallback(
     (id: string) => {
@@ -445,7 +464,8 @@ export function ShootingRangeScene({
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' })
     rendererRef.current = renderer
     renderer.setSize(container.clientWidth, container.clientHeight)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobileRef.current ? 1.5 : 2))
+    // Cap DPR: fullscreen MSAA at 2x is the single biggest fill-rate cost.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobileRef.current ? 1.25 : 1.5))
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.2
     container.innerHTML = ''
@@ -478,10 +498,9 @@ export function ShootingRangeScene({
     // 5. Doodle Paper Range (notebook floor, doodle back-wall, ink rails)
     // Floor
     const floorGeo = new THREE.PlaneGeometry(36, 45, 12, 12)
-    const floorMat = new THREE.MeshStandardMaterial({
+    // Unlit: flat doodle paper needs no per-fragment lighting (major fill-rate win).
+    const floorMat = new THREE.MeshBasicMaterial({
       color: 0xe9e0c9,
-      roughness: 0.95,
-      metalness: 0,
     })
     const floor = new THREE.Mesh(floorGeo, floorMat)
     floor.rotation.x = -Math.PI / 2
@@ -501,10 +520,8 @@ export function ShootingRangeScene({
     // Back Wall (hand-drawn doodle sheet)
     const wallGeo = new THREE.PlaneGeometry(38, 20)
     const wallTex = createDoodleWallTexture()
-    const wallMat = new THREE.MeshStandardMaterial({
+    const wallMat = new THREE.MeshBasicMaterial({
       map: wallTex,
-      roughness: 0.95,
-      metalness: 0,
     })
     const wall = new THREE.Mesh(wallGeo, wallMat)
     wall.position.set(0, 4, -22)
@@ -720,11 +737,18 @@ export function ShootingRangeScene({
     // 9. Animation Loop
     let animationFrameId: number
     let clock = new THREE.Clock()
+    // Adaptive quality: sustained low fps drops to DPR 1 + hides dust, silently.
+    let lowFpsAccum = 0
+    let lowFpsFrames = 0
+    let degraded = false
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate)
-      const delta = clock.getDelta()
+      const delta = Math.min(clock.getDelta(), 0.05)
       const time = clock.getElapsedTime()
+
+      // Dossier open: canvas is veiled — skip all work, keep the frame.
+      if (activeModalRef.current) return
 
       // Smooth camera recoil recovery
       cameraRecoilRot.current.x = THREE.MathUtils.lerp(cameraRecoilRot.current.x, 0, delta * 12)
@@ -742,7 +766,12 @@ export function ShootingRangeScene({
         .filter((t) => t.mesh.visible)
         .map((t) => t.mesh)
       const intersects = raycasterRef.current.intersectObjects(targetMeshes, false)
-      setIsHoverLocked(intersects.length > 0)
+      // Only touch React state when the lock actually flips — never per frame.
+      const locked = intersects.length > 0
+      if (locked !== hoverLockedRef.current) {
+        hoverLockedRef.current = locked
+        setIsHoverLocked(locked)
+      }
 
       // Update Targets (pop-in spawn, idle bobbing, hover scaling, hit animation)
       targets.forEach((target) => {
@@ -808,12 +837,28 @@ export function ShootingRangeScene({
 
         if (p.life >= p.maxLife) {
           scene.remove(p.mesh)
-          p.mesh.geometry.dispose()
+          // No dispose: geometry/material are shared pooled resources.
           particlesRef.current.splice(pIdx, 1)
         }
       }
 
       renderer.render(scene, camera)
+
+      // Adaptive degrade check (2s rolling window, fires once).
+      if (!degraded) {
+        lowFpsAccum += delta
+        lowFpsFrames += 1
+        if (lowFpsAccum >= 2) {
+          const avgFps = lowFpsFrames / lowFpsAccum
+          lowFpsAccum = 0
+          lowFpsFrames = 0
+          if (avgFps < 45) {
+            degraded = true
+            renderer.setPixelRatio(1)
+            dustParticles.visible = false
+          }
+        }
+      }
     }
 
     animate()
@@ -825,6 +870,20 @@ export function ShootingRangeScene({
       container.removeEventListener('mousedown', onMouseDown)
       container.removeEventListener('touchstart', onTouchStart)
       window.removeEventListener('resize', onResize)
+      scene.traverse((obj) => {
+        const mesh = obj as THREE.Mesh
+        if ((mesh as unknown as { isMesh?: boolean }).isMesh) {
+          mesh.geometry?.dispose()
+          const mat = mesh.material as THREE.Material | THREE.Material[] | undefined
+          if (Array.isArray(mat)) mat.forEach((m) => m.dispose())
+          else mat?.dispose()
+        }
+      })
+      targets.forEach((t) => t.texture.dispose())
+      wallTex.dispose()
+      sparkMatsRef.current.clear()
+      sparkGeoRef.current = null
+      particlesRef.current = []
       renderer.dispose()
       scene.clear()
     }
@@ -882,7 +941,7 @@ export function ShootingRangeScene({
 
       {/* ALL CLEAR — every target down, offer a replay */}
       {allCleared && !activeModal && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-[#F5F1E6]/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-[#F5F1E6]/92">
           <div className="max-w-sm w-full bg-[#FFFDF5] border-[3px] border-[#1D1D1F] rounded-3xl shadow-[8px_8px_0_#1D1D1F] p-6 text-center space-y-4">
             <div className="text-5xl">🏆</div>
             <h2 className="font-mono text-2xl font-black text-[#1D1D1F]">

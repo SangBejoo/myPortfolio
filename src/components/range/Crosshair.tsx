@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface CrosshairProps {
   isLocked: boolean
@@ -20,13 +20,23 @@ export function Crosshair({
   maxAmmo,
   isReloading,
 }: CrosshairProps) {
-  const [pos, setPos] = useState({ x: -100, y: -100 })
+  // Perf: cursor position is written straight to the DOM — a React render
+  // on every mousemove would fight the WebGL frame budget.
   const [visible, setVisible] = useState(false)
+  const nodeRef = useRef<HTMLDivElement>(null)
+  const shownRef = useRef(false)
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY })
-      if (!visible) setVisible(true)
+      if (!shownRef.current) {
+        shownRef.current = true
+        setVisible(true)
+      }
+      const node = nodeRef.current
+      if (node) {
+        node.style.left = `${e.clientX}px`
+        node.style.top = `${e.clientY}px`
+      }
     }
     const onLeave = () => setVisible(false)
     const onEnter = () => setVisible(true)
@@ -40,7 +50,7 @@ export function Crosshair({
       document.removeEventListener('mouseleave', onLeave)
       document.removeEventListener('mouseenter', onEnter)
     }
-  }, [visible])
+  }, [])
 
   if (!visible) return null
 
@@ -49,10 +59,11 @@ export function Crosshair({
 
   return (
     <div
+      ref={nodeRef}
       className="fixed pointer-events-none z-40 transition-opacity duration-150 select-none"
       style={{
-        left: pos.x,
-        top: pos.y,
+        left: -100,
+        top: -100,
         transform: 'translate(-50%, -50%)',
       }}
     >

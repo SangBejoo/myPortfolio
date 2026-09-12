@@ -70,7 +70,7 @@ export function RangeHUD({
       {/* Top Tactical Bar */}
       <div className="flex items-center justify-between gap-3 w-full">
         {/* Left: Operative Callout & Progress */}
-        <div className="pointer-events-auto flex items-center gap-3 bg-[#070B16]/90 border border-[#0A84FF]/30 rounded-xl px-3.5 py-2 backdrop-blur-md shadow-lg">
+        <div className="pointer-events-auto flex items-center gap-3 bg-[#070B16]/90 border border-[#0A84FF]/30 rounded-xl px-3.5 py-2  shadow-lg">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export function RangeHUD({
 
         {/* Center: Boss Alert Bar (if boss target is engaged or still active) */}
         {activeBossTarget && (
-          <div className="hidden md:flex pointer-events-auto items-center gap-3 bg-red-950/80 border border-red-500/50 rounded-xl px-4 py-2 backdrop-blur-md shadow-[0_0_20px_rgba(255,59,48,0.3)]">
+          <div className="hidden md:flex pointer-events-auto items-center gap-3 bg-red-950/80 border border-red-500/50 rounded-xl px-4 py-2  shadow-[0_0_20px_rgba(255,59,48,0.3)]">
             <span className="font-mono text-xs text-red-400 font-bold tracking-widest animate-pulse">
               BOSS: INTELECTO LMS
             </span>
@@ -127,7 +127,7 @@ export function RangeHUD({
           <div className="relative">
             <button
               onClick={() => setShowAudioControls(!showAudioControls)}
-              className="p-2 rounded-xl bg-[#070B16]/90 border border-white/10 hover:border-[#0A84FF]/50 text-gray-300 hover:text-[#0A84FF] transition-all backdrop-blur-md"
+              className="p-2 rounded-xl bg-[#070B16]/90 border border-white/10 hover:border-[#0A84FF]/50 text-gray-300 hover:text-[#0A84FF] transition-all "
               title="Audio settings"
               aria-label="Audio settings"
             >
@@ -141,7 +141,7 @@ export function RangeHUD({
                   initial={{ opacity: 0, y: 8, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                  className="absolute right-0 top-12 w-56 bg-[#0B1120] border border-[#0A84FF]/30 rounded-xl p-3.5 shadow-2xl backdrop-blur-xl z-50 text-white space-y-3"
+                  className="absolute right-0 top-12 w-56 bg-[#0B1120] border border-[#0A84FF]/30 rounded-xl p-3.5 shadow-2xl  z-50 text-white space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-xs font-bold text-[#0A84FF]">
@@ -196,7 +196,7 @@ export function RangeHUD({
           {/* Target Roster Drawer Toggle */}
           <button
             onClick={() => setShowRoster(!showRoster)}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border font-mono text-xs font-semibold backdrop-blur-md transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border font-mono text-xs font-semibold  transition-all ${
               showRoster
                 ? 'bg-[#0A84FF] text-white border-[#0A84FF] shadow-[0_0_12px_rgba(10,132,255,0.5)]'
                 : 'bg-[#070B16]/90 text-gray-300 border-white/10 hover:border-[#0A84FF]/50 hover:text-white'
@@ -210,7 +210,7 @@ export function RangeHUD({
           {/* Help Toggle */}
           <button
             onClick={() => setShowHelp(!showHelp)}
-            className="p-2 rounded-xl bg-[#070B16]/90 border border-white/10 hover:border-[#0A84FF]/50 text-gray-300 hover:text-[#0A84FF] transition-all backdrop-blur-md"
+            className="p-2 rounded-xl bg-[#070B16]/90 border border-white/10 hover:border-[#0A84FF]/50 text-gray-300 hover:text-[#0A84FF] transition-all "
             title="Help / Controls"
             aria-label="Help"
           >
@@ -236,7 +236,7 @@ export function RangeHUD({
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="pointer-events-auto self-end w-80 max-h-[70vh] bg-[#070B16]/95 border border-[#0A84FF]/40 rounded-2xl p-4 shadow-2xl backdrop-blur-xl text-white flex flex-col mt-2 z-40"
+            className="pointer-events-auto self-end w-80 max-h-[70vh] bg-[#070B16]/95 border border-[#0A84FF]/40 rounded-2xl p-4 shadow-2xl  text-white flex flex-col mt-2 z-40"
           >
             <div className="flex items-center justify-between pb-2 border-b border-white/10">
               <span className="font-mono text-xs font-bold text-[#0A84FF] flex items-center gap-1.5">
@@ -318,7 +318,7 @@ export function RangeHUD({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="pointer-events-auto self-center max-w-md w-full bg-[#0B1120]/95 border-2 border-[#0A84FF]/40 rounded-2xl p-5 shadow-2xl backdrop-blur-xl text-white space-y-4 z-50 my-auto"
+            className="pointer-events-auto self-center max-w-md w-full bg-[#0B1120]/95 border-2 border-[#0A84FF]/40 rounded-2xl p-5 shadow-2xl  text-white space-y-4 z-50 my-auto"
           >
             <div className="flex items-center justify-between border-b border-white/10 pb-2">
               <span className="font-mono text-xs font-bold text-[#0A84FF] flex items-center gap-2">
@@ -376,13 +376,13 @@ export function RangeHUD({
       {/* Bottom Bar: Ammo Station & Tactical Status */}
       <div className="flex items-end justify-between w-full">
         {/* Left: Quick Tips */}
-        <div className="hidden sm:flex pointer-events-auto items-center gap-2 bg-[#070B16]/80 border border-white/10 rounded-xl px-3 py-1.5 backdrop-blur-md text-[11px] font-mono text-gray-400">
+        <div className="hidden sm:flex pointer-events-auto items-center gap-2 bg-[#070B16]/80 border border-white/10 rounded-xl px-3 py-1.5  text-[11px] font-mono text-gray-400">
           <span className="text-[#0A84FF]">TIP:</span>
           <span>Targets pop up one by one • Tap ROSTER to jump to one • Boss needs 3 hits • [M] to Mute</span>
         </div>
 
         {/* Right: Tactical Ammo Counter */}
-        <div className="pointer-events-auto flex items-center gap-3 bg-[#070B16]/90 border border-[#0A84FF]/30 rounded-xl px-4 py-2.5 backdrop-blur-md shadow-lg">
+        <div className="pointer-events-auto flex items-center gap-3 bg-[#070B16]/90 border border-[#0A84FF]/30 rounded-xl px-4 py-2.5  shadow-lg">
           <div className="flex flex-col text-right">
             <span className="font-mono text-[10px] text-gray-400 tracking-wider">
               TACTICAL AMMO

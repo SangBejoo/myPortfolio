@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 // Hand-drawn doodle ray-blaster anchored at the bottom of the screen.
 // Rotates toward the cursor and kicks on every shot. Purely cosmetic:
 // hit detection still runs through the 3D raycast in ShootingRangeScene.
 export function DoodleBlaster({ isFiring }: { isFiring: boolean }) {
-  const [angle, setAngle] = useState(0)
+  // Perf: rotation is written straight to the DOM (no render per mousemove).
+  const gunRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -14,8 +15,10 @@ export function DoodleBlaster({ isFiring }: { isFiring: boolean }) {
       const ay = window.innerHeight - 80
       const dx = e.clientX - ax
       const dy = ay - e.clientY
-      const deg = (Math.atan2(dx, dy) * 180) / Math.PI
-      setAngle(Math.max(-55, Math.min(55, deg)))
+      const deg = Math.max(-55, Math.min(55, (Math.atan2(dx, dy) * 180) / Math.PI))
+      if (gunRef.current) {
+        gunRef.current.style.transform = `rotate(${deg}deg)`
+      }
     }
     window.addEventListener('mousemove', onMove)
     return () => window.removeEventListener('mousemove', onMove)
@@ -29,11 +32,11 @@ export function DoodleBlaster({ isFiring }: { isFiring: boolean }) {
     >
       <div
         style={{
-          transform: `rotate(${angle}deg) translateY(${isFiring ? 12 : 0})`,
-          transformOrigin: '50% 85%',
+          transform: `translateY(${isFiring ? 12 : 0})`,
           transition: 'transform 90ms ease-out',
         }}
       >
+      <div ref={gunRef} style={{ transformOrigin: '50% 85%' }}>
         <svg width="130" height="130" viewBox="0 0 130 130">
           {/* Muzzle POW burst */}
           {isFiring && (
@@ -103,6 +106,7 @@ export function DoodleBlaster({ isFiring }: { isFiring: boolean }) {
             fill="#1D1D1F"
           />
         </svg>
+      </div>
       </div>
     </div>
   )

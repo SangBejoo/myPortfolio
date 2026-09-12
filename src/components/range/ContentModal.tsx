@@ -65,7 +65,7 @@ export function ContentModal({ data, onClose }: ContentModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-[#1D1D1F]/45 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-[#1D1D1F]/55">
         {/* Backdrop click to dismiss */}
         <div className="fixed inset-0" onClick={onClose} />
 
