@@ -638,13 +638,15 @@ export function ShootingRangeScene({
     const bossTex = createProjectTargetTexture(bossProj, true, bossHP)
     addTarget(bossProj.id, bossProj.name, 'boss', [0, 1.2, -13.5], [3.2, 3.2], bossTex, bossProj, undefined, true, bossHP)
 
-    // Targets 3-7: Other Projects
+    // Targets 3-9: Other Projects
     const normalProjects = portfolioData.projects.filter((p) => !p.boss)
     const projPositions: [number, number, number][] = [
       [-3.8, -0.2, -10.0], // CBT
+      [-1.8, 0.5, -11.0],  // BookLens
       [3.4, 0.3, -9.0],    // Parking Space
       [-2.4, 0.9, -15.5],  // Rusunawa
-      [2.8, -0.3, -12.0],  // Chat Waifu
+      [1.8, -0.3, -10.5],  // Atinout
+      [2.8, -0.3, -12.5],  // Chat Waifu
       [3.8, 1.0, -16.5],   // Capstone
     ]
 
