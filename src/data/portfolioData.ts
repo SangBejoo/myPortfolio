@@ -270,7 +270,7 @@ export const portfolioData: PortfolioConfig = {
       },
       description: 'Location-based smart attendance and geofencing platform engineered for schools and distributed multi-branch organizations. Features interactive Leaflet maps with dynamic polygon/radius geofence boundaries, real-time GPS coordinate verification (sub-15m accuracy validation against designated premises), shift & late arrival scheduling, automated absence/leave reviews, and real-time attendance auditing without manual recaps.',
       highlight: 'Geofencing Verification • Real-Time GPS Validation • Leaflet Maps • Shift & Late Auditing',
-      stack: ['React', 'TypeScript', 'Leaflet', 'RESTful APIs', 'Geofencing GIS', 'TailwindCSS'],
+      stack: ['Svelte', 'TypeScript', 'Leaflet', 'RESTful APIs', 'Geofencing GIS', 'TailwindCSS'],
       images: [
         '/images/projects/Atinout/Screenshot 2026-11-14 150237.png',
         '/images/projects/Atinout/Screenshot 2026-11-14 150310.png',
